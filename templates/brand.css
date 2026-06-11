@@ -1,0 +1,59 @@
+/* =============================================================================
+   Caldera brand CSS — reusable tokens + helpers for bespoke LinkedIn visuals.
+   Link this from any HTML you author, then screenshot it with render-html.mjs:
+     <link rel="stylesheet" href="../../templates/brand.css">   (path is relative
+     to YOUR html file; adjust ../ depth so it resolves to templates/brand.css)
+   Canonical source: references/brand.md · D:\github_repository\ChanMeng666\data\brand.yaml
+   ========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root{
+  /* palette */
+  --basalt:#E2E2DF;   /* page background — never pure white */
+  --ash:#F7F6F2;      /* card / button surface */
+  --white:#FFFFFF;    /* text on ink/orange only */
+  --ink:#070607;      /* text, headings, borders */
+  --orange:#FC5000;   /* THE accent — blocks/rules, one per unit, never small text */
+  --violet:#524AE9;   /* decorative-only */
+  --glare:#F5F28E;    /* highlight / graphic accent */
+  --muted:#5B5B59;
+
+  /* type */
+  --display:'Anton', Oswald, 'Bebas Neue', Impact, sans-serif;
+  --body:'DM Sans', Inter, 'Segoe UI', system-ui, sans-serif;
+  --mono:'JetBrains Mono', Consolas, ui-monospace, monospace;
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; background:#aaa; font-family:var(--body); -webkit-font-smoothing:antialiased; }
+
+/* ── Stage: the basalt canvas you screenshot. Set width/height inline or via a
+      size class; flat ground, no shadows (brand rule: depth = color blocks). ── */
+.stage{ position:relative; background:var(--basalt); overflow:hidden; color:var(--ink); }
+.stage.square{ width:1200px; height:1200px; }
+.stage.landscape{ width:1200px; height:628px; }   /* ~1.91:1 feed image */
+.stage.portrait{ width:1080px; height:1350px; }
+
+/* ── Helpers ── */
+.eyebrow{ display:flex; align-items:center; gap:14px; font-weight:700;
+  letter-spacing:0.16em; text-transform:uppercase; color:var(--ink); }
+.eyebrow .dot{ width:16px; height:16px; background:var(--orange); flex:none; }
+
+.display{ font-family:var(--display); font-weight:400; letter-spacing:0.02em; line-height:0.96; color:var(--ink); }
+.rule{ width:120px; height:10px; background:var(--orange); }      /* the one orange accent rule */
+.mono{ font-family:var(--mono); }
+
+/* Flat color blocks + pixel accents — the cyber-playground signature. */
+.block{ position:absolute; }
+.b-violet{ background:var(--violet); }
+.b-ink{ background:var(--ink); }
+.b-orange{ background:var(--orange); }
+.b-glare{ background:var(--glare); }
+.px{ position:absolute; width:18px; height:18px; }
+
+/* Surface card (ash on basalt, ink hairline border, big friendly radius). */
+.card{ background:var(--ash); border:2px solid var(--ink); border-radius:40px; padding:40px; }
+
+/* Logo: bundled at templates/assets/chan-monkey-logo-black.svg. On an ink block
+   use .on-ink to flip the black art to white and drop its white bg into the ink. */
+.logo.on-ink{ filter:invert(1); mix-blend-mode:screen; }

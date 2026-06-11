@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Chan Meng — LinkedIn Post Card (Caldera)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --basalt:#E2E2DF; --ash:#F7F6F2; --white:#FFFFFF; --ink:#070607;
+    --orange:#FC5000; --violet:#524AE9; --glare:#F5F28E; --muted:#5B5B59;
+  }
+  *,*::before,*::after{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; background:#aaa; font-family:'DM Sans',sans-serif; -webkit-font-smoothing:antialiased; }
+
+  /* Card dimensions are set inline by render-card.mjs (square 1200×1200 or
+     landscape 1200×628). Flat basalt ground, generous padding. */
+  .card{
+    position:relative; width:1200px; height:1200px;
+    background:var(--basalt); overflow:hidden;
+    padding:96px; display:flex; flex-direction:column; justify-content:center;
+  }
+
+  /* ── Eyebrow: orange square + uppercase label ── */
+  .eyebrow{
+    display:flex; align-items:center; gap:14px;
+    font-weight:700; font-size:24px; letter-spacing:0.16em; text-transform:uppercase;
+    color:var(--ink); margin-bottom:36px; max-width:78%;
+  }
+  .eyebrow .dot{ width:16px; height:16px; background:var(--orange); flex:none; }
+
+  /* ── Headline: Anton, mixed case, auto-fit by JS ── */
+  .headline{
+    font-family:'Anton',sans-serif; font-weight:400;
+    font-size:104px; line-height:0.96; letter-spacing:0.01em; color:var(--ink);
+    margin:0; max-width:88%;
+  }
+  /* ── Orange accent rule under the headline ── */
+  .rule{ width:120px; height:10px; background:var(--orange); margin:44px 0 0; }
+
+  /* ── Sub / attribution ── */
+  .sub{
+    font-weight:500; font-size:34px; line-height:1.35; color:var(--ink);
+    margin:36px 0 0; max-width:80%;
+  }
+
+  /* ── Footer: logo + name + datestamp pinned bottom-left ── */
+  .footer{
+    position:absolute; left:96px; bottom:84px;
+    display:flex; align-items:center; gap:20px;
+  }
+  .footer .logo{ width:64px; height:64px; filter:none; }
+  .footer .who{ display:flex; flex-direction:column; }
+  .footer .name{ font-family:'Anton',sans-serif; font-size:30px; letter-spacing:0.02em; color:var(--ink); line-height:1; }
+  .footer .stamp{ font-family:'JetBrains Mono','Consolas',monospace; font-size:16px; color:var(--ink); margin-top:6px; }
+
+  /* ── Right-top color-block composition + pixel accents ── */
+  .block{ position:absolute; }
+  .b-violet{ right:120px; top:0;    width:96px;  height:96px;  background:var(--violet); }
+  .b-ink{    right:0;     top:64px; width:200px; height:200px; background:var(--ink); }
+  .b-orange{ right:150px; top:240px;width:108px; height:108px; background:var(--orange); }
+  .b-glare{  right:40px;  top:288px;width:56px;  height:56px;  background:var(--glare); }
+  .px{ position:absolute; width:18px; height:18px; }
+  .p1{ right:280px; top:96px;  background:var(--ink); }
+  .p2{ right:24px;  top:24px;  background:var(--glare); }
+  .p3{ right:96px;  top:200px; background:var(--violet); }
+</style>
+</head>
+<body>
+
+<div class="card" id="card" data-out="post-card.png">
+  <div class="eyebrow" id="eyebrow"><span class="dot"></span><span id="eyebrow-text">EVENT RECAP</span></div>
+  <h1 class="headline" id="headline">Headline goes here</h1>
+  <div class="rule"></div>
+  <p class="sub" id="sub">Subtitle / attribution goes here.</p>
+
+  <div class="footer">
+    <img class="logo" src="assets/chan-monkey-logo-black.svg" alt="">
+    <div class="who">
+      <span class="name" id="who-name">Chan Meng</span>
+      <span class="stamp" id="who-stamp">chanmeng.org</span>
+    </div>
+  </div>
+
+  <!-- decorative composition -->
+  <div class="block b-violet"></div>
+  <div class="block b-ink"></div>
+  <div class="block b-orange"></div>
+  <div class="block b-glare"></div>
+  <div class="px p1"></div>
+  <div class="px p2"></div>
+  <div class="px p3"></div>
+</div>
+
+</body>
+</html>

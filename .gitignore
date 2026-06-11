@@ -1,0 +1,10 @@
+# Secrets — never commit the OpenAI key
+.env
+.env.local
+
+# Generated posts (your drafts + assets live here)
+output/
+
+# Node
+node_modules/
+npm-debug.log*

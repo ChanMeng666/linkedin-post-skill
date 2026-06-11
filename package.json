@@ -1,0 +1,17 @@
+{
+  "name": "linkedin-post-skill",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Claude Code skill: write on-brand LinkedIn posts (idea + event-recap) with Caldera-styled visuals and draft them into the LinkedIn composer.",
+  "scripts": {
+    "render:mermaid": "node scripts/render-mermaid.mjs",
+    "render:card": "node scripts/render-card.mjs",
+    "gen:image": "node scripts/gen-image.mjs"
+  },
+  "dependencies": {
+    "@mermaid-js/mermaid-cli": "^11.14.0",
+    "openai": "^4.77.0",
+    "playwright": "^1.49.0"
+  }
+}

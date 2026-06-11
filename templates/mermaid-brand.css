@@ -1,0 +1,11 @@
+/* Caldera fonts for Mermaid diagrams. Injected via mmdc --cssFile so the
+   headless Chromium loads DM Sans (body) regardless of installed system fonts. */
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap');
+
+svg[id^="mermaid"] {
+  font-family: 'DM Sans', Inter, Helvetica, Arial, sans-serif;
+}
+/* Node label text weight — DM Sans 500 is the brand workhorse. */
+.nodeLabel, .edgeLabel, .cluster-label {
+  font-weight: 500;
+}
