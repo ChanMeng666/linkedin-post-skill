@@ -1,7 +1,8 @@
 # Hashtag bank
 
 Curated tag sets for Chan's posts. **Rules:**
-- Use **8–12 hashtags** on the final line for idea posts; **6–10** for recaps.
+- Count by mode, on the final line: **8–12** for idea posts · **5–8** for takes (a short opinion post
+  reads worse under a long tag block) · **6–10** for recaps.
 - Mix tiers: 2–3 **broad** (reach) + 4–6 **niche** (relevance) + 1–2 **personal/brand**.
 - Match the post's actual topic — don't dump the whole list. Prefer tags Chan's audience follows.
 - For recaps, lead with the **official event hashtag** if one exists (check the event page).
@@ -37,4 +38,5 @@ Curated tag sets for Chan's posts. **Rules:**
 ## Worked examples
 - **AI-native dev idea post:** `#AIEngineering #PromptEngineering #SoftwareDevelopment #AIOrchestration #TechCareers #ClaudeAI #DeveloperMindset #FutureOfCoding #VibeCoding #TechInterviews`
 - **FemTech idea post:** `#FemTech #WomensHealth #AIAgents #HealthTech #WomenInAI #BuildInPublic #AIEngineering #TechForGood`
+- **Take on an agent-tooling article:** `#AIAgents #ModelContextProtocol #AIEngineering #SoftwareEngineering #LLM #BuildInPublic`
 - **Auckland AI meetup recap:** `#<OfficialEventTag> #AucklandTech #AIEngineering #TechCommunity #AIAgents #Networking #NZTech #KnowledgeSharing`

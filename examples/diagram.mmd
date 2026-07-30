@@ -1,48 +1,33 @@
----
-config:
-  theme: base
-  themeVariables:
-    primaryColor: "#ffffff"
-    primaryTextColor: "#1a1a2e"
-    fontSize: "16px"
-    fontFamily: "Inter, Helvetica, Arial, sans-serif"
-  flowchart:
-    htmlLabels: true
-    padding: 20
-    nodeSpacing: 50
-    rankSpacing: 50
----
+%% Example of a diagram that PASSES the visual gate (SKILL.md Step 3):
+%% two contrasting paths (≥3 parts each), a named relationship between them, and a shared
+%% consequence — structure a reader can't absorb from the copy in one pass.
+%% No `--- config ---` block: the brand theme is applied by scripts/render-mermaid.mjs.
 flowchart TB
-    TITLE["<b>🚀 The AI-Native Developer Mindset</b><br/><i>Stop typing. Start architecting.</i>"]:::title
+    TITLE["The AI-Native Developer Mindset<br/>Stop typing. Start architecting."]:::ink
 
-    TITLE --> OLD_HEAD["<b>🐎 &nbsp; OLD WAY &nbsp;</b><br/>Pre-AI Era"]:::oldHead
-    TITLE --> NEW_HEAD["<b>🚗 &nbsp; AI-NATIVE WAY &nbsp;</b><br/>2026 and Beyond"]:::newHead
+    TITLE --> OLD_HEAD["🐎 OLD WAY<br/>Pre-AI era"]:::surface
+    TITLE --> NEW_HEAD["🚗 AI-NATIVE WAY<br/>2026 and beyond"]:::glare
 
-    OLD_HEAD --> O1["⌨️ &nbsp; Hand-code every line"]:::old
-    O1 --> O2["🧩 &nbsp; Microservices by default"]:::old
-    O2 --> O3["🙈 &nbsp; Hide AI assistance"]:::old
-    O3 --> O4["📚 &nbsp; Memorize syntax"]:::old
-    O4 --> O5["🧪 &nbsp; Toy projects only"]:::old
+    OLD_HEAD --> O1["Hand-code every line"]
+    O1 --> O2["Microservices by default"]
+    O2 --> O3["Hide AI assistance"]
+    O3 --> O4["Memorize syntax"]
+    O4 --> O5["Toy projects only"]
 
-    NEW_HEAD --> N1["🏗️ &nbsp; Architect &amp; orchestrate"]:::new
-    N1 --> N2["📦 &nbsp; One monolith, one repo"]:::new
-    N2 --> N3["🤝 &nbsp; Embrace transparency"]:::new
-    N3 --> N4["💡 &nbsp; Master the WHY, not HOW"]:::new
-    N4 --> N5["🚀 &nbsp; Ship real production apps"]:::new
+    NEW_HEAD --> N1["Architect &amp; orchestrate"]
+    N1 --> N2["One monolith, one repo"]
+    N2 --> N3["Embrace transparency"]
+    N3 --> N4["Master the WHY, not HOW"]
+    N4 --> N5["Ship real production apps"]
 
-    O5 --> EVOLVE["<b>⚡ &nbsp; THE EVOLUTION &nbsp;</b>"]:::evolve
+    O5 --> EVOLVE["THE EVOLUTION"]:::accent
     N5 --> EVOLVE
 
-    EVOLVE --> R1["📈 &nbsp; Faster shipping"]:::result
-    EVOLVE --> R2["🎯 &nbsp; Stronger interviews"]:::result
-    EVOLVE --> R3["🌍 &nbsp; Real-world impact"]:::result
+    EVOLVE --> R1["Faster shipping"]:::surface
+    EVOLVE --> R2["Stronger interviews"]:::surface
+    EVOLVE --> R3["Real-world impact"]:::surface
 
-    classDef title fill:#1a1a2e,stroke:#0f3460,stroke-width:3px,color:#fff
-    classDef oldHead fill:#c0392b,stroke:#922b21,stroke-width:3px,color:#fff
-    classDef newHead fill:#27ae60,stroke:#1e8449,stroke-width:3px,color:#fff
-    classDef old fill:#fde2e2,stroke:#c0392b,stroke-width:2px,color:#7b241c
-    classDef new fill:#d4f4dd,stroke:#27ae60,stroke-width:2px,color:#1e8449
-    classDef evolve fill:#f39c12,stroke:#d35400,stroke-width:3px,color:#fff
-    classDef result fill:#fff4cc,stroke:#f39c12,stroke-width:2px,color:#7d6608
-
-    linkStyle default stroke:#7f8c8d,stroke-width:2px
+    classDef accent  fill:#FC5000,stroke:#070607,color:#fff;
+    classDef ink     fill:#070607,stroke:#070607,color:#fff;
+    classDef glare   fill:#F5F28E,stroke:#070607,color:#070607;
+    classDef surface fill:#F7F6F2,stroke:#070607,color:#070607;

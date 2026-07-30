@@ -4,12 +4,16 @@ How to write the copy. English only. Reverse-engineered from the reference post
 (`examples/post.txt`) and Chan's brand voice (`references/brand.md`). Pair this with `brand.md`
 (vocabulary, do/don'ts) and `hashtag-bank.md` (tags).
 
-## The two post types
+## The three post types
 
-| Type | Goal | Default visual |
-|------|------|----------------|
-| **idea** | Share a framework/opinion → personal-brand authority | brand Mermaid diagram or OpenAI image |
-| **recap** | Reflect on an offline event, mention people/orgs → grow network | branded HTML→PNG card |
+| Type | Goal | Visual |
+|------|------|--------|
+| **idea** | Share her own framework/opinion → personal-brand authority | diagram only if it passes the gate |
+| **take** | React to an article/news with her own read → product taste + technical judgement | none — the link preview |
+| **recap** | Reflect on an offline event, mention people/orgs → grow network | Chan's real photos |
+
+The `Visual` column is a summary, not a rule. **`SKILL.md` Step 3 owns that decision** — work through
+its gate. Text-only is a normal, frequent outcome for all three.
 
 ## Anatomy of an idea post (the proven shape)
 
@@ -26,6 +30,34 @@ The reference post follows this skeleton — reuse it, don't copy it verbatim:
 6. **Punch line** — one imperative sentence. _e.g._ "Stop being a code typist. Start being a system architect. ✨"
 7. **CTA question** — invite replies. _e.g._ "What's your take — …? Drop your thoughts below 👇"
 8. **Hashtag block** — 8–12 tags on the last line (see `hashtag-bank.md`).
+
+## Anatomy of a take post
+
+For "I read this, here's what I think." Shorter and plainer than an idea post — the value is Chan's
+**judgement**, not a framework. 4–6 beats, no scaffolding.
+
+1. **What I read** — the source in one line, plus what it actually claims. Credit the author or
+   publication by name. _e.g._ `Anthropic shipped X this week. The claim: Y.`
+2. **The one thing that landed** — a single detail, number, or sentence that stuck. Specific beats
+   comprehensive; you are not summarizing the article, the link does that.
+3. **Chan's take** — the actual opinion, including where she disagrees or thinks it's overstated.
+   This beat is the whole post. Product taste = noticing what most readers skimmed past.
+4. **So what** — what it changes about how she builds, or what she'll try next. One or two lines,
+   concrete.
+5. **CTA question** — short and genuine. _e.g._ `Am I reading this wrong?`
+6. **Hashtag block** — 5–8 tags.
+
+**Plain, not dumbed down.** The brand's architecture-grade vocabulary still applies to *nouns* — but
+a take post should be readable in one pass by someone who hasn't read the article. Short sentences,
+one technical term per beat at most, and if a term is load-bearing, define it in four words inline.
+Precision without a jargon wall is what reads as taste; density reads as showing off.
+
+**Anti-patterns for take posts:**
+- ❌ "Here's the framework 👇" — that's an idea post; a take doesn't need scaffolding.
+- ❌ A forced numbered list of 5 points mined out of the article.
+- ❌ Summarizing the whole piece — the link preview and the reader's own click do that.
+- ❌ A diagram. If a take genuinely needs a diagram, it was an idea post all along.
+- ❌ Explainer voice ("Let me break down what this means for you"). Peer voice, not lecture.
 
 ## Anatomy of a recap post
 
@@ -44,8 +76,13 @@ The reference post follows this skeleton — reuse it, don't copy it verbatim:
 
 ## Mechanics & norms
 
-- **Length:** 1,000–1,800 characters is the sweet spot. The reference post is ~1,850 — fine. Hard
-  cap is LinkedIn's 3,000.
+- **Length, per mode** (hard cap is LinkedIn's 3,000):
+  - **idea** — 1,000–1,800 chars. The reference post is ~1,850, which is fine.
+  - **take** — 600–1,200 chars. Plain-spoken, one idea, no padding. If it's running long, the extra
+    length is usually article summary that should be cut.
+  - **recap** — 1,000–1,600 chars, shorter when photos are carrying the post.
+- **When photos are attached, the copy must reference something visible in them** — the whiteboard,
+  the packed room, the demo on screen. That's the seam where a real post separates from a template.
 - **First 2 lines matter most** — they're the "see more" preview. Front-load the hook.
 - **Whitespace is the formatting.** Blank line between every beat. LinkedIn renders no markdown —
   no `**bold**`, no `#`, no bullet chars beyond plain text + emoji. Use emoji as bullets.
@@ -58,6 +95,8 @@ The reference post follows this skeleton — reuse it, don't copy it verbatim:
 
 ## Output format
 
-Write the final copy to `output/<YYYY-MM-DD>-<slug>/post.txt` as plain text exactly as it should
-appear on LinkedIn (emoji inline, blank lines preserved, hashtags on the final line). Keep it
-copy-paste-ready even though the skill will also draft it into the composer.
+The copy goes inside a ```` ```text ```` fence in the `## The copy` section of
+`output/<YYYY-MM-DD>-<slug>/post.md` (see `SKILL.md` Step 4) — exactly as it should appear on
+LinkedIn: emoji inline, blank lines preserved, hashtags on the final line, names as **plain text**
+with no `@` prefix. The fence matters: it keeps the blank lines intact when Chan copies it, and
+LinkedIn's editor pastes it verbatim.
