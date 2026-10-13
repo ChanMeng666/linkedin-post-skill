@@ -1,67 +1,94 @@
-# linkedin-post — a Claude Code skill for on-brand LinkedIn posts
+# linkedin-post — a Claude Code skill for LinkedIn and X posts
 
-A [Claude Code](https://claude.com/claude-code) **skill** that writes English LinkedIn posts for
-personal-brand marketing, adds an on-brand visual *only when one earns its place*, and hands you
-**one markdown file**: the copy, who to @mention (and how to pick the right person out of LinkedIn's
-dropdown), and photo notes. It **never touches LinkedIn** — no browser automation, no composer. You
-copy, tag, attach, publish.
-
-Three modes:
-
-- **idea** — share your own framework or opinion to build authority with your network.
-- **take** — a short, plain-spoken reaction to a tech article or news item: what it claimed, what
-  landed, and your actual read on it.
-- **recap** — reflect on an offline tech event, crediting and tagging speakers, organizers, and
-  companies to grow your network. It researches and verifies names/titles/handles before tagging,
-  and uses **your own event photos** as the visual.
-
-## How it works
+A [Claude Code](https://claude.com/claude-code) **skill** that takes one of your ideas and turns it
+into a post that specialists believe, non-specialists follow, and people finish. It writes for
+LinkedIn, for X, or for both, adds a diagram or a rendered image when the content has a shape worth
+seeing, and hands you **one markdown file**. It **never touches LinkedIn or X**: no browser
+automation, no composer. You copy, tag, attach, publish.
 
 ```
-/linkedin-post idea      # or: take / recap   (or just describe what you want)
+/linkedin-post idea      # or: story / take / recap   (or just describe what you want)
 ```
 
-`SKILL.md` orchestrates the flow:
+## What it is built on
 
-1. **Gather inputs** — the idea/angle, the article URL, or the event details, people to credit, and
-   whether you have photos.
-2. **Research & verify** (recap) — confirm exact names, titles and employers, plus a distinguishing
-   headline so you can tell two same-named people apart in LinkedIn's dropdown.
-3. **Draft the copy** — a shape and length band per mode, in a consistent voice
-   (architecture-grade, evidence-first, no marketing fluff).
-4. **Decide whether a visual helps at all** — your photos win outright; a diagram must pass an
-   explicit structure test; otherwise the post ships text-only.
-5. **Write `post.md`** — copy in a fenced block, the mention table, photo order, the facts each
-   claim rests on, and every judgement call made on your behalf.
+**A studied voice.** `references/voice.md` is a writing system distilled from two LinkedIn writers
+the author likes reading: one who writes from lived moments, one who writes as an operator
+reporting what he found. It gives two registers:
 
-## Visuals — gated, not automatic
+- **Story**: opening with a turn in it → a scene with real details → the turn → what changed →
+  a closing line that returns to something from the scene.
+- **Operator**: a short thesis or a number → what was built or measured → why it matters → one
+  worked example → the lesson as a two-sentence contrast.
 
-The most common correct answer is **no generated visual**. A diagram that restates the copy reads as
-AI filler, and on an event recap a synthetic card actively undercuts the real photos. So Step 3 works
-top-down: *your photos* → *mode default* → *a three-question gate* → text-only.
+Both share the same rules: open with a sentence and not a headline, let exact details persuade,
+admit something, say one thing, use few emoji and fewer hashtags, and end by landing the thought.
+The file also lists what the skill never writes (emoji headlines, "here's the framework",
+tick-and-cross lists, "drop your thoughts below") and ends with a plain-language pass.
 
-| Route | Script | When |
-|-------|--------|------|
-| **Your photos** | — (nothing rendered) | any post about something you attended — always wins |
-| **Mermaid** (`mmdc`) | `scripts/render-mermaid.mjs` | only structure that passes the gate: ≥3 parts with real relationships (flow, before/after, stack, branch) |
-| **HTML → PNG** (Playwright, 2× DPI) | `scripts/render-card.mjs` (quick card) · `scripts/render-html.mjs` (bespoke layouts) | one strong quotable line; bespoke when the card is too plain |
-| **OpenAI image** (`gpt-image-1`) | `scripts/gen-image.mjs` | abstract hero image, last resort only |
-| **Nothing** | — | everything else, including every `take` post |
+**Two platforms, two posts.** `references/platforms.md` sets LinkedIn and X side by side. LinkedIn
+is a network of people who know you, reading for stories, lessons and credit. X is builders who
+don't, reading for a sharp claim and its proof. The skill writes each post from the idea, for that
+reader. The X version is never the LinkedIn version cut down.
 
-Anything that does get generated follows a single design system ("Caldera": a basalt canvas, one
-Digital-Orange accent, Anton + DM Sans type, flat color blocks). Author a bespoke visual by writing
-an HTML file that links `templates/brand.css` (brand tokens + helpers), then screenshot it with
-`render-html.mjs`. Recipes live in `references/visuals.md`; the decision logic stays in `SKILL.md`.
+**Only real material.** The voice works because the details are true, so the skill asks for the
+moment, the number or the quote it needs and writes without it if you don't have it. It doesn't
+invent anecdotes.
+
+## Modes
+
+| Mode | For | LinkedIn | X |
+|------|-----|----------|---|
+| **story** | something happened and it changed how you think | 900 to 1,800 chars | one post, if it travels |
+| **idea** | a claim you can back with a build, a number, a method | 1,000 to 1,800 chars | one post, or a thread of 3 to 7 |
+| **take** | a reaction to an article or a release | 500 to 1,000 chars | one post, link in a reply |
+| **recap** | an event, crediting the people | 900 to 1,600 chars, your photos | one moment, one photo |
+
+## Visuals, by the shape of the content
+
+One test: would a reader get something from the image in two seconds that the text makes them
+work for? Then the content's shape picks the route.
+
+| The post contains… | Route | Tool |
+|--------------------|-------|------|
+| your photos, or a real screenshot | use it, generate nothing | — |
+| arrows that matter: a loop, a branch, a hand-off | Mermaid diagram | `scripts/render-mermaid.mjs` |
+| a before/after, one number, a few numbers, a straight sequence | HTML layout → PNG | `templates/visuals/{compare,stat,bars,steps}.html` + `scripts/render-html.mjs` |
+| one quotable line | quote card | `scripts/render-card.mjs` |
+| something else that deserves a layout | bespoke HTML → PNG | `templates/brand.css` + `scripts/render-html.mjs` |
+| an opinion or story with no structure | nothing | — |
+
+HTML visuals render from one file at both sizes: `--size portrait` (1080×1350, LinkedIn) and
+`--size wide` (1600×900, X). Everything generated follows one design system ("Caldera": basalt
+canvas, a single orange accent, Anton and DM Sans, flat colour).
+
+| | |
+|---|---|
+| ![compare layout, landscape](examples/visual-x.png) | ![Mermaid loop](examples/diagram.png) |
+
+## The handoff
+
+`output/<date>-<slug>/post.md` holds the copy for each platform in a labelled block, who to mention
+(for LinkedIn, the headline that picks the right person out of the dropdown; for X, a handle and
+where it was verified), photo order, the visual files, the facts each claim rests on, and every
+judgement call made on your behalf. See [`examples/post.md`](examples/post.md).
+
+```bash
+node scripts/count.mjs output/<date>-<slug>/post.md
+```
+
+measures both blocks (LinkedIn against 3,000; each X post against 280, weighted the way X counts)
+and flags house-style slips.
 
 ## Repository layout
 
 ```
-SKILL.md            The orchestrator (invoked as /linkedin-post) — owns the visual gate
-references/         Brand tokens, post voice/structure, hashtag bank, recap playbook, visual recipes
-templates/          Mermaid brand theme · brand.css · post-card.html · logo asset
-scripts/            render-mermaid · render-card · render-html · gen-image · lib/load-env
-examples/           A real reference post + its diagram
-output/             Generated drafts — one post.md per run, plus any visual (gitignored)
+SKILL.md            The orchestrator (invoked as /linkedin-post)
+references/         voice · platforms · brand · visuals · recap playbook · hashtag bank
+templates/          brand.css · visuals/ (stat, compare, bars, steps) · quote card · Mermaid theme · logo
+scripts/            count · render-html · render-mermaid · render-card · gen-image
+examples/           A worked post.md for both platforms, with its visual and a Mermaid example
+output/             Generated drafts, one folder per run (gitignored)
 ```
 
 ## Setup
@@ -70,29 +97,26 @@ output/             Generated drafts — one post.md per run, plus any visual (g
 npm install
 npx playwright install chromium
 
-# Optional — only needed for the OpenAI image fallback:
+# Optional, only for the OpenAI image fallback:
 cp .env.example .env          # then set OPENAI_API_KEY (the loader also reads .env.local)
 ```
 
-The OpenAI key is genuinely optional — that route is a last resort, and without a key
-`gen-image.mjs` exits 2 while everything else works. To make the skill invocable as
-`/linkedin-post`, expose this folder to Claude Code's skills directory (e.g. a junction/symlink at
-`~/.claude/skills/linkedin-post`).
+Text-only posts and `count.mjs` need nothing installed beyond Node. To make the skill invocable as
+`/linkedin-post`, expose this folder to Claude Code's skills directory (for example a junction or
+symlink at `~/.claude/skills/linkedin-post`).
 
 ## Security
 
-API keys are read from the environment or a local, git-ignored `.env` / `.env.local` file — they are
-**never** committed. `.gitignore` excludes `.env`, `.env.local`, `node_modules/`, and `output/`. Use
-`.env.example` as the template.
+API keys are read from the environment or a local, git-ignored `.env` / `.env.local` file and are
+never committed. `.gitignore` excludes `.env`, `.env.local`, `node_modules/` and `output/`.
 
-## Notes
+## Making it yours
 
-This is a personal-brand tool tuned to one author's identity and voice; the brand system, hashtag
-bank, and reference copy under `references/` are meant to be edited to fit your own. Built as a
-demonstration of composing Claude Code skills with web research, Mermaid, Playwright, and image
-generation.
+This is a personal-brand tool tuned to one author. To adapt it: edit `references/brand.md` (who you
+are, who you write for, your palette), and rebuild `references/voice.md` from writers *you* like
+reading. Study twenty or so of their posts, write down how they open, pace, prove and close, and
+keep their actual sentences out of it.
 
-Earlier versions drove the LinkedIn composer via browser automation. That was removed: LinkedIn's
-editor mangles programmatic input around @mention chips (swallowed spaces, backspaces landing in the
-wrong place), and the composer gives no usable file input for photos anyway. Producing a clean
-markdown handoff is both more reliable and faster for the human doing the final 30 seconds of work.
+Earlier versions drove the LinkedIn composer through browser automation. That was removed:
+LinkedIn's editor mangles programmatic input around mention chips, and a post under your name is
+yours to send. A clean handoff file is both more reliable and faster.

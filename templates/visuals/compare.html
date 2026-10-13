@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>compare</title>
+<!-- Before/after, or option A against option B. 3 to 5 rows per column, paired left to right.
+     .is-key marks the side the post argues for.
+     Copy to output/<date>-<slug>/visual.html (same folder depth, so the paths below still
+     resolve), replace the text, then render once per platform:
+       node scripts/render-html.mjs output/<date>-<slug>/visual.html output/<date>-<slug>/visual-linkedin.png --size portrait
+       node scripts/render-html.mjs output/<date>-<slug>/visual.html output/<date>-<slug>/visual-x.png --size wide -->
+<link rel="stylesheet" href="../../templates/brand.css">
+</head>
+<body>
+<div class="stage portrait">
+  <div class="frame">
+    <div class="v-eyebrow"><span class="dot"></span>Eyebrow label</div>
+    <h1 class="v-title">The shift in one line</h1>
+    <div class="v-rule"></div>
+    <div class="v-body">
+      <div class="cmp">
+        <div class="col">
+          <div class="head">Before</div>
+          <ul><li>Row one</li><li>Row two</li><li>Row three</li><li>Row four</li></ul>
+        </div>
+        <div class="col is-key">
+          <div class="head">After</div>
+          <ul><li>Row one</li><li>Row two</li><li>Row three</li><li>Row four</li></ul>
+        </div>
+      </div>
+    </div>
+    <div class="v-foot">
+      <img src="../../templates/assets/chan-monkey-logo-black.svg" alt="">
+      <div><div class="name">Chan Meng</div><div class="stamp">chanmeng.org</div></div>
+      <div class="src">Source, or delete this line</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

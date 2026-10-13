@@ -7,6 +7,53 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0] - 2026-10-13
+
+A redesign: a studied voice, a second platform, and visuals chosen by the shape of the content.
+
+### Added
+- **A writing system, `references/voice.md`**, built from about twenty recent posts each by two
+  LinkedIn writers Chan likes reading, one story-led and one operator-led.
+  It defines two registers, **Story** and **Operator**, with the shape and techniques of each,
+  shared rules, opener and closer patterns, a "Never" list, and a plain-language pass. It records
+  craft only; none of their sentences or stories are reproduced.
+- **X (Twitter) as a second platform.** `references/platforms.md` sets out how the audience,
+  mechanics and shapes differ from LinkedIn, and how to translate an idea between them. Each
+  platform's post is written separately; the X post is never a trimmed LinkedIn post.
+- **`story` mode**, for posts that start from something that happened.
+- **`scripts/count.mjs`**, which reads the copy blocks in `post.md`, measures LinkedIn length and
+  X's weighted length per post, prints the LinkedIn "see more" preview, and flags the mechanical
+  items on the "Never" list.
+- **HTML visual templates** in `templates/visuals/`: `stat`, `compare`, `bars`, `steps`, on a
+  layout kit added to `templates/brand.css` that scales from one unit.
+- **`render-html.mjs --size portrait|square|wide|landscape`**, so one HTML file renders for both
+  platforms (1080×1350 for LinkedIn, 1600×900 for X). It now exits 3 when content is clipped.
+- A rule stated up front: **only real material**. The skill asks for the moment, number or quote
+  it needs and never invents one.
+
+### Changed
+- **Visuals are routed by the shape of the content** instead of gated by a three-question test
+  that defaulted to nothing. Arrows that matter go to Mermaid; a comparison, a number, a set of
+  numbers or a straight sequence go to an HTML layout; real photos and screenshots still win
+  outright; text only remains a normal outcome. `references/visuals.md` now holds both the
+  decision and the recipes.
+- **The old house style is retired**: the emoji headline, "Here's the framework", emoji-numbered
+  points, tick-and-cross lists, arrow bullets, the "drop your thoughts below" ending and the block
+  of 8 to 12 hashtags. LinkedIn posts now take none, or 3 to 5.
+- `post.md` has a section per platform, with the copy in fences labelled `text linkedin` and
+  `text x`. The mention table gained an X-handle column with where each handle was verified.
+- `SKILL.md` workflow reordered: real material → verify → spine and register → draft per platform
+  → visual → handoff.
+- `examples/` replaced with a worked `post.md` (the original reference post rewritten in the new
+  voice, for both platforms), a `compare` visual and a Mermaid loop.
+
+### Removed
+- `references/voice-and-structure.md` (superseded by `voice.md` and `platforms.md`).
+- `examples/post.txt` and its two-column Mermaid diagram, which was a comparison drawn as a
+  flowchart.
+
+## [1.1.0] (never tagged)
+
 ### Added
 - **`take` mode** — a third post type for short, plain-spoken reactions to a tech article or news
   item (4–6 beats, 600–1,200 chars, 5–8 hashtags), with its own anatomy and anti-patterns in

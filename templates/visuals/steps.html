@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>steps</title>
+<!-- A short straight-line sequence or timeline, 3 to 5 rows. Put .is-key on the one step the
+     post is about. If the steps branch or loop, use Mermaid instead.
+     Copy to output/<date>-<slug>/visual.html (same folder depth, so the paths below still
+     resolve), replace the text, then render once per platform:
+       node scripts/render-html.mjs output/<date>-<slug>/visual.html output/<date>-<slug>/visual-linkedin.png --size portrait
+       node scripts/render-html.mjs output/<date>-<slug>/visual.html output/<date>-<slug>/visual-x.png --size wide -->
+<link rel="stylesheet" href="../../templates/brand.css">
+</head>
+<body>
+<div class="stage portrait">
+  <div class="frame">
+    <div class="v-eyebrow"><span class="dot"></span>Eyebrow label</div>
+    <h1 class="v-title">What happens, in order</h1>
+    <div class="v-rule"></div>
+    <div class="v-body">
+      <ol class="steps">
+        <li><div class="n">1</div><div><b>First step</b><span>One line on what happens here.</span></div></li>
+        <li><div class="n">2</div><div><b>Second step</b><span>One line on what happens here.</span></div></li>
+        <li class="is-key"><div class="n">3</div><div><b>The step that matters</b><span>One line on why.</span></div></li>
+        <li><div class="n">4</div><div><b>Last step</b><span>One line on what happens here.</span></div></li>
+      </ol>
+    </div>
+    <div class="v-foot">
+      <img src="../../templates/assets/chan-monkey-logo-black.svg" alt="">
+      <div><div class="name">Chan Meng</div><div class="stamp">chanmeng.org</div></div>
+      <div class="src">Source, or delete this line</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

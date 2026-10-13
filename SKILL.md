@@ -1,189 +1,171 @@
 ---
 name: linkedin-post
-description: Use when Chan Meng wants to write an English LinkedIn post for personal-brand marketing — an "idea" post (her own framework/opinion), a "take" post (a short reaction to a tech article or news she read), or a post-event "recap" (reflecting on an offline tech meetup, crediting speakers/organizers/companies to grow her network). Researches and verifies the people to credit, writes on-brand copy with emoji + hashtags, adds a Caldera-branded visual only when one genuinely earns its place (recaps use Chan's own event photos; many posts ship text-only), and hands back ONE markdown file — copy, who to @mention, and photo notes. Chan posts it herself; the skill never opens LinkedIn.
+description: Use when Chan Meng wants to turn a thought into a post for LinkedIn, X (Twitter), or both — "write a LinkedIn post about…", "tweet this", "make this an X thread", "post about what I just read", "recap the meetup I went to". Four modes — story (something that happened and what it changed), idea (a claim she can back), take (a reaction to an article or release), recap (an event, crediting people). Writes in a voice system built from two writers she admires, writes each platform's post separately for its own audience, adds a Mermaid diagram or an HTML-rendered image when the content has a shape worth seeing, and hands back ONE markdown file. Chan posts it herself; the skill never opens LinkedIn or X.
 ---
 
-# LinkedIn post writer (Chan Meng / Caldera brand)
+# Post writer for LinkedIn and X (Chan Meng / Caldera brand)
 
-Write English LinkedIn posts that build Chan Meng's personal brand and expand her network, and hand
-them back as **one markdown file** she can copy straight into LinkedIn.
+Take one of Chan's ideas and turn it into a post that is credible to specialists, plain enough for
+anyone who follows her, and worth reading to the end. Write it for LinkedIn, for X, or for both,
+and hand it back as **one markdown file** she can copy from.
 
 ## Hard boundary: you never drive a browser
 
 **This skill has no browser step.** Do not call `claude-in-chrome`, Playwright-as-automation,
-chrome-devtools, or any other page-driving tool. Do not open LinkedIn. Do not open a composer, type
-into one, resolve @mention chips, attach files, or click Post — not even "just to stage a draft for
-review."
+chrome-devtools, or any other page-driving tool. Do not open LinkedIn or X. Do not open a composer,
+type into one, resolve mention chips, attach files, or click Post, not even "to stage a draft".
 
-This is a deliberate removal, not an oversight. LinkedIn's editor cannot be driven reliably: it
-swallows the space after a resolved mention chip, lands backspaces at the wrong caret position and
-corrupts text that was already correct, and exposes no usable file input for photos. Every attempt
-costs more time than it saves and risks mangling copy Chan has already approved.
-
-**Chan does the LinkedIn half entirely by hand** — she pastes the copy, converts each name into a
-tag from the live dropdown, attaches her own photos, and publishes. Your entire deliverable is a
-markdown file that makes those thirty seconds frictionless.
+This is deliberate. LinkedIn's editor cannot be driven reliably (it swallows the space after a
+mention chip, lands backspaces in the wrong place, and exposes no usable file input), and a post
+published under Chan's name is hers to send. She pastes, tags, attaches and publishes. Your whole
+deliverable is a file that makes that take a minute.
 
 Still allowed, because they aren't browser automation:
-- **WebSearch / WebFetch** for research and verification — this is how you get names, titles and
-  facts right, and it matters more now that Chan tags from your table rather than from a URL.
-- **The render scripts** (`render-card.mjs`, `render-html.mjs`), which screenshot local HTML with
-  headless Chromium. That's image generation, not page automation — no live site is involved.
+- **WebSearch / WebFetch** for research and verification.
+- **The render scripts**, which screenshot local HTML with headless Chromium. No live site is
+  involved.
 
-## When to use
-- "Write a LinkedIn post about <idea>" / "here's my framework for X" → **idea mode**.
-- "I read <article/news>, here's my take" / a pasted URL + a reaction → **take mode**.
-- "I went to <event>, write a recap" / "post-event reflection" → **recap mode**.
+## Reference docs
 
-## Reference docs (read the ones you need)
-- `references/brand.md` — colors, fonts, logo, voice do/don'ts, imagery direction.
-- `references/voice-and-structure.md` — post anatomy per mode + mechanics (read every run).
-- `references/hashtag-bank.md` — curated hashtag sets + rules.
-- `references/recap-playbook.md` — recap research, verification, photos, @mention mechanics.
-- `references/visuals.md` — render recipes. **Read only if Step 3's gate says a visual is warranted.**
-- `examples/post.txt` + `examples/diagram.mmd` — a real reference idea post + its diagram.
+| File | Read |
+|------|------|
+| `references/voice.md` | **every run.** The writing system: two registers, openers, closers, the "Never" list, the plain-language pass |
+| `references/platforms.md` | **every run.** LinkedIn against X: audience, mechanics, shapes per mode, how to translate |
+| `references/brand.md` | every run. Who Chan is, who she writes for, vocabulary, visual tokens |
+| `references/hashtag-bank.md` | when a LinkedIn post takes hashtags |
+| `references/recap-playbook.md` | recap mode: research, verification, photos, mentions |
+| `references/visuals.md` | at Step 4: which visual route, and the render recipes |
+| `examples/post.md` | a worked handoff file: one idea, both platforms, with a visual |
 
 ## Workflow
 
-### Step 0 — Pick mode & gather inputs
-- Mode from the `/linkedin-post <idea|take|recap>` arg, else infer, else ask once.
-- **Idea:** the thought/angle, target audience, any proof points (repos, numbers, links).
-- **Take:** the article/news URL, what the source actually claims (1–2 sentences), Chan's own take,
-  and whether she's agreeing, extending, or pushing back. Fetch the URL and read it — don't react to
-  a headline. Note the author/publication so she can credit them.
-- **Recap:** event name/date/city/link, the people and orgs to credit, Chan's 1–2 genuine takeaways,
-  **and — ask this up front — does she have event photos? (paths, or "no")**. That answer decides
-  Step 3 entirely, so get it before drafting.
-- Don't block on completeness — gather what she has.
+### Step 0 — Mode, platforms, and the real material
 
-### Step 1 — (Recap only) Research & verify who to credit
-Follow `references/recap-playbook.md`:
-- **WebSearch + WebFetch** the event page and each person Chan named: confirm exact name spelling,
-  current title, and employer. Fetch the official event/film/company page for the hard facts.
-- Never invent a profile or a handle. Chan resolves every tag herself, by hand, in her own LinkedIn
-  composer — so what she needs from you is **the right name plus a way to recognise the right person
-  in the dropdown** (a distinguishing headline), not a URL you guessed.
-- Keep the findings for the mention table in Step 4.
+**Mode**, from the `/linkedin-post <mode>` argument, else inferred, else asked once:
 
-### Step 2 — Draft the copy
-- Use the anatomy **for the mode** in `references/voice-and-structure.md` plus the voice rules in
-  `references/brand.md`. Each mode has its own shape and length band — don't force one into another:
+| Mode | Use when |
+|------|----------|
+| **story** | something happened to her and it changed how she thinks |
+| **idea** | she has a claim and something to back it: a build, a number, a method |
+| **take** | she read or watched something and has a view on it |
+| **recap** | she went to an event and wants to credit the people and say what stuck |
 
-  | Mode | Shape | Length | Hashtags |
-  |------|-------|--------|----------|
-  | idea | 8-beat framework: hook → numbered points → mental shift → CTA | 1,000–1,800 chars | 8–12 |
-  | take | 4–6 beats: what I read → what landed → my take → so what → CTA | 600–1,200 chars | 5–8 |
-  | recap | 6 beats: opening → what stood out (@mentions) → takeaway → thanks → CTA | 1,000–1,600 chars | 6–10 |
+**Platforms**: `linkedin`, `x`, or `both`. If she named one, use it. If she didn't, write both and
+say so. `platforms.md` lists the cases where a mode doesn't suit a platform; skip those and say why.
 
-- Tags from `references/hashtag-bank.md`. Architecture-grade vocabulary, evidence-first, no marketing
-  fluff. English only.
-- Plain text (LinkedIn renders no markdown); blank line between beats; emoji as bullets.
-- Show Chan the draft and iterate **before** spending effort on a visual.
+**The real material.** The voice depends on true specifics, so gather them before drafting. Ask
+only for what is missing, in one message:
 
-### Step 3 — Decide IF a visual helps, then which
+- **story**: what happened, when and where, what was said (her words or theirs), what she expected,
+  what she thinks now.
+- **idea**: the claim in a sentence, what she built or measured that supports it, any numbers with
+  the numbers they replaced, links.
+- **take**: the URL (fetch it and read it; never react to a headline), her view, and whether she
+  agrees, extends or disagrees.
+- **recap**: event name, date, venue, link; who to credit and for what; one or two things that
+  stuck; **and whether she has photos** (paths, or "no").
 
-**Text-only is a valid, common, and often better outcome.** Plenty of strong LinkedIn posts carry no
-image at all, and a diagram that merely restates the copy reads as AI filler — it costs Chan
-credibility rather than adding reach. "No visual" is a decision to state, not a step you failed.
+Never invent an anecdote, a quote, a number or a detail of Chan's experience. If the draft needs
+one she hasn't given, ask. If she doesn't have it, write without it. (`voice.md`, first section.)
 
-If Chan explicitly asks for a diagram or an image, make it — the gate governs the *default*, not her
-requests. Otherwise work through these in order and stop at the first one that answers:
+Don't block on completeness. One round of questions, then draft with what there is and list the
+gaps in the handoff.
 
-**1. Does Chan have her own photos?** (recap, or any post about something she was physically at)
-→ **Her photos ARE the visual. Generate nothing.** Real faces and a real room beat any render for
-authenticity, which is the whole point of a recap. Follow `recap-playbook.md` → "Photos (the real
-visual)": order them, work one visible detail into the copy, and record the order in `post.md`.
+### Step 1 — Research and verify
 
-**2. Mode default:**
-- **take** → **no visual.** The article link's own preview card is the visual (see Step 4). Adding a
-  branded graphic on top competes with it and buries the link. (Exception: if Chan wants to show a
-  specific figure *from the source* — a chart, a benchmark table — use that image, credited. Don't
-  redraw it as a Mermaid diagram.)
-- **recap without photos** → *offer* one branded card (a quote or field-note). **Never a diagram** —
-  never draw a box-and-arrow chart of an evening with humans in it.
-- **idea** → continue to the gate.
+- **take**: read the source. Note the author and publication, and what it claims in a sentence or
+  two. Check any figure you plan to repeat.
+- **recap**: follow `recap-playbook.md`. Confirm each name's spelling, current title and employer.
+  For X, find a handle only from the person's own site or profile, or the event's page.
+- **idea / story**: verify any outside fact the post leans on (a release date, what a tool does).
 
-**3. The gate — a diagram ships only if ALL THREE are yes:**
-1. Is there structure a reader can't absorb from the text in one pass — **≥3 parts *and* named
-   relationships between them** (a flow, a before/after, a layered stack, a decision branch)?
-2. Would you actually sketch this on a whiteboard to explain it out loud?
-3. Does the diagram carry information the copy doesn't — rather than restating the numbered list?
+Never invent a profile or a handle. A wrong tag points Chan at a stranger in public.
 
-Any "no" → **no diagram.** If the post is structure-free but has one killer line, you may *offer*
-Chan a quote card — offer it, don't assume it. If the gate is genuinely borderline, ask Chan **one**
-question; don't hand her a menu of four options.
+### Step 2 — Find the spine, pick the register
 
-**4. Route → recipe** (commands live in `references/visuals.md`, read it only now):
+Before writing, state to yourself in one sentence what the post says. If it takes two sentences,
+there are two posts; pick one and offer Chan the other for later.
 
-| Verdict | Asset |
-|---------|-------|
-| Chan's photos | none generated — just the `## Photos` section of `post.md` |
-| Gate passed | Mermaid diagram → `diagram.mmd` + `diagram.png` |
-| One killer line, offered & accepted | branded card → `card.png` |
-| Card too plain for accepted content | bespoke HTML → `visual.html` + `visual.png` |
-| Needs a hero image, nothing else fits | OpenAI image → `image.png` (last resort) |
-| Everything else | **nothing — ship text-only** |
+Then choose the register from `voice.md`: **Story** when the material is a moment, **Operator**
+when it is a claim with evidence. Recaps use a Story spine with Operator facts.
 
-If you generate something, **Read the rendered PNG** and show Chan the asset. If it looks like filler
-on screen, say so and drop it. If you generate nothing, tell Chan in one line
-why — that's the deliverable for this step.
+### Step 3 — Draft, one platform at a time
 
-### Step 4 — Write the handoff: `post.md`
+1. **Draft the first platform** using its shape from `platforms.md` and the register from
+   `voice.md`. LinkedIn first when writing both, unless it's a take on fresh news, which goes to X
+   first.
+2. **Write the second platform from the idea, not from the first draft.** Different reader,
+   different opening, different length. `platforms.md` → "What changes in translation".
+3. **Run the plain-language pass** (`voice.md`, last section) on both.
+4. **Write the drafts into `post.md`** (format in Step 5) and run
+   `node scripts/count.mjs output/<date>-<slug>/post.md`. Fix everything it flags. Read the
+   LinkedIn preview line it prints: if the first 210 characters are warm-up, rewrite the top.
+5. **Show Chan the copy and iterate** before spending effort on a visual.
 
-The deliverable is **one file**: `output/<YYYY-MM-DD>-<slug>/post.md`. Chan opens it, copies the
-copy, tags the people, attaches her photos, publishes. Everything she needs is in that file — she
-should never have to come back and ask you a question to finish posting.
+### Step 4 — Decide the visual
 
-Required sections, in this order:
+Read `references/visuals.md` now. In short:
 
-1. **Header** — mode, date drafted, event/source name, date + venue or article URL, which visual
-   route Step 3 took (or "none — Chan's photos"), character count, hashtag count.
-2. **`## The copy`** — the post inside a ```` ```text ```` fence so blank lines and emoji survive the
-   copy-paste exactly. One line above it: "Copy everything inside the block, exactly as-is."
-3. **`## Who to @mention`** (recap, or any post crediting people) — a table:
-   `# | Name in the copy | Type this | Pick the entry that says | Confidence`.
-   The **"Pick the entry that says"** column is the important one: LinkedIn's dropdown shows several
-   people with the same name, so give Chan the headline that identifies the right one. Flag every
-   near-miss you found ("the *first* Jane Doe is a different person — she's the one headlined X").
-   Mark anything unverified as plain-text-only. Never supply a profile URL you aren't certain of.
-4. **`## Photos`** — the suggested order, lead shot first, and the rule that nobody visible gets
-   named or tagged unless they're in the mention table. Skip if there are no photos.
-5. **`## Link`** (take mode) — the article URL, and whether to put it in the body (LinkedIn renders
-   a preview card, which is the visual) or the first comment (no preview, better reach). Recommend
-   one. Never both a link preview and an attached image.
-6. **`## Verified facts behind the copy`** — the sourced facts any claim in the post rests on, so
-   Chan can defend or correct them.
-7. **`## Judgement calls made in the copy`** — anywhere you softened, sharpened, omitted, or chose
-   between two true framings, with the alternative spelled out. This is where you're honest about
-   what you decided on her behalf.
+- Her own photos or a real screenshot always win. Generate nothing.
+- Otherwise match the content's shape: arrows that matter → **Mermaid**; a comparison, a number,
+  a few numbers, a straight sequence → an **HTML layout** rendered to PNG; one quotable line → a
+  **quote card**; no shape → **text only**.
+- Render per platform: portrait for LinkedIn, landscape for X.
+- Read every PNG you render. If it repeats the copy or looks crowded, fix it or drop it.
 
-Also in the folder, **only if Step 3 called for one**: the visual (`diagram.mmd`+`diagram.png`,
-`card.png`, `visual.html`+`visual.png`, or `image.png`). An empty visual slot is a correct result.
+One generated visual per post at most. Say in one line which route you took and why, including
+"text only, because…".
 
-Then, in chat, give Chan the file path and one line on which visual route you took and why —
-including "text-only, because …". That keeps the decision auditable and stops the next run from
-defaulting to a diagram.
+### Step 5 — Write the handoff: `post.md`
+
+One file: `output/<YYYY-MM-DD>-<slug>/post.md`. Chan should be able to publish from it without
+asking you anything. `examples/post.md` shows the format. Sections, in order, skipping any that
+don't apply:
+
+1. **Header.** Mode, register, platforms, date drafted, event or source, visual route, counts.
+2. **`## LinkedIn`.** One line of instruction, then the copy in a fence opened with
+   ```` ```text linkedin ````. Names as plain text, no `@`.
+3. **`## X`.** How to post it (single, or post 1 then replies), then the copy in a fence opened
+   with ```` ```text x ````. Thread posts are separated by a line containing only `---`. If a link
+   belongs in a reply, give it on its own line under the block.
+4. **`## Who to mention`.** A table: `# | Name in the copy | LinkedIn: type this, pick the entry
+   that says… | X handle (and where it was verified) | Confidence`. The "pick the entry that says"
+   column matters most on LinkedIn: give the headline that separates the right person from their
+   namesakes, and flag near-misses. Unverified people stay plain text on both platforms.
+5. **`## Photos`.** Suggested order, lead shot first, and which one goes on X.
+6. **`## Visual`.** Each generated file, which platform it is for, and what it shows.
+7. **`## Link`** (take mode). The URL, and where to put it on each platform: LinkedIn body
+   (preview card) or first comment; X reply. Recommend one. Never a link preview and an attached
+   image on the same LinkedIn post.
+8. **`## Verified facts behind the copy`.** What each claim rests on, with sources.
+9. **`## Judgement calls made in the copy`.** Where you softened, sharpened, cut, or chose between
+   two true framings, with the alternative spelled out. Include anything Chan was asked for and
+   didn't have, and how the copy works around it.
+
+The fence labels matter: `count.mjs` finds the copy by them.
+
+Then, in chat: the file path, the counts, the visual route in one line, and any open question.
 
 ## Setup / dependencies
-- **Only needed if a visual is being rendered** — text-only posts need nothing installed.
-- `node_modules/` is gitignored, so it may be absent. If a render script fails with
-  `ERR_MODULE_NOT_FOUND` (playwright / openai), run `npm install` then
-  `npx playwright install chromium` from the repo root and retry.
+
+- Text-only posts need nothing installed. `scripts/count.mjs` uses only Node.
+- Rendering needs `npm install` and `npx playwright install chromium` from the repo root.
+  `node_modules/` is gitignored, so a fresh clone won't have it; `ERR_MODULE_NOT_FOUND` means this.
 - `render-mermaid.mjs` falls back to a global `mmdc` when the local one is missing, so a Mermaid
-  render can succeed even with no `node_modules` — don't read that as "deps are installed".
-- **OpenAI image** needs a key: copy `.env.example` → `.env` and set `OPENAI_API_KEY`. Without it,
-  `gen-image.mjs` exits 2 — everything else works, and that path is a last resort anyway.
-- `mmdc` reuses the existing `puppeteer-config.json`; the brand theme lives in
-  `templates/mermaid-brand-config.json` + `templates/mermaid-brand.css`.
+  render succeeding doesn't mean the HTML routes will.
+- The OpenAI image route needs `OPENAI_API_KEY` in `.env` (copy `.env.example`). Without it
+  `gen-image.mjs` exits 2. It's a last resort anyway.
 
 ## Guardrails
-- English only; on-brand voice; one orange accent per visual.
-- **Never generate a visual to fill a slot.** An unearned diagram reads as AI filler and costs more
-  credibility than a bare post ever would. No visual is a normal outcome — say so and move on.
-- **Real photos outrank generated art.** If Chan has event photos, nothing gets rendered.
-- Never diagram a recap; never stack a branded image on top of an article link preview.
-- **Never open LinkedIn.** No browser automation, no composer, no posting — the deliverable is
-  `post.md` and nothing else. Chan publishes.
-- Never invent a person's identity/handle. You are telling Chan who to tag, so a wrong name sends
-  her to tag the wrong human — worse than telling her you couldn't verify it (`recap-playbook.md`).
+
+- **Only real material.** No invented anecdotes, quotes, numbers or people.
+- **English, NZ spelling.** The voice in `voice.md`; nothing from its "Never" list.
+- **Each platform gets its own post.** Never a trimmed copy of the other.
+- **Never open LinkedIn or X.** The deliverable is `post.md`. Chan publishes.
+- **Never invent an identity or a handle.** Unverified means plain text.
+- **Don't reuse the reference writers' sentences, stories or names.** The system borrows their
+  craft, not their content.
+- **One generated visual per post, and only when it shows something the text can't.** Real photos
+  and screenshots outrank anything rendered. Never diagram an event or stack an image on a link
+  preview.
 - Keep generated work in `output/` (gitignored); never write drafts to the repo root.

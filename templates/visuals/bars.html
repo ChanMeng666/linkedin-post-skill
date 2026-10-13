@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>bars</title>
+<!-- 2 to 6 numbers compared. --v is each bar's length as a percent of the largest value
+     (largest = 100). .is-key marks the bar the post is about. Real numbers only.
+     Copy to output/<date>-<slug>/visual.html (same folder depth, so the paths below still
+     resolve), replace the text, then render once per platform:
+       node scripts/render-html.mjs output/<date>-<slug>/visual.html output/<date>-<slug>/visual-linkedin.png --size portrait
+       node scripts/render-html.mjs output/<date>-<slug>/visual.html output/<date>-<slug>/visual-x.png --size wide -->
+<link rel="stylesheet" href="../../templates/brand.css">
+</head>
+<body>
+<div class="stage portrait">
+  <div class="frame">
+    <div class="v-eyebrow"><span class="dot"></span>Eyebrow label</div>
+    <h1 class="v-title">What the numbers say</h1>
+    <div class="v-rule"></div>
+    <div class="v-body">
+      <div class="bars">
+        <div class="row"><div class="lab">Label A</div><div class="track"><div class="bar" style="--v:22"></div><div class="val">220</div></div></div>
+        <div class="row"><div class="lab">Label B</div><div class="track"><div class="bar" style="--v:58"></div><div class="val">579</div></div></div>
+        <div class="row is-key"><div class="lab">Label C</div><div class="track"><div class="bar" style="--v:100"></div><div class="val">1,000</div></div></div>
+      </div>
+    </div>
+    <div class="v-foot">
+      <img src="../../templates/assets/chan-monkey-logo-black.svg" alt="">
+      <div><div class="name">Chan Meng</div><div class="stamp">chanmeng.org</div></div>
+      <div class="src">Source, or delete this line</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
