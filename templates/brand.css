@@ -57,3 +57,63 @@ html,body{ margin:0; padding:0; background:#aaa; font-family:var(--body); -webki
 /* Logo: bundled at templates/assets/chan-monkey-logo-black.svg. On an ink block
    use .on-ink to flip the black art to white and drop its white bg into the ink. */
 .logo.on-ink{ filter:invert(1); mix-blend-mode:screen; }
+
+/* =============================================================================
+   Layout kit for templates/visuals/*.html — sizes scale off --u, so one HTML
+   file renders at any stage size (render-html.mjs --size swaps the class).
+   ========================================================================== */
+.stage{ --u:12px; }
+.stage.square{ --u:12px; }
+.stage.portrait{ --u:11.5px; }                       /* LinkedIn feed, 4:5 */
+.stage.landscape{ --u:7.4px; }                       /* link-card ratio */
+.stage.wide{ width:1600px; height:900px; --u:10.5px; } /* X feed, 16:9 */
+
+.frame{ position:absolute; inset:0; padding:calc(var(--u)*8); display:flex; flex-direction:column; }
+.v-eyebrow{ display:flex; align-items:center; gap:calc(var(--u)*1.2); font-weight:700;
+  font-size:calc(var(--u)*2); letter-spacing:0.16em; text-transform:uppercase; }
+.v-eyebrow .dot{ width:calc(var(--u)*1.4); height:calc(var(--u)*1.4); background:var(--orange); flex:none; }
+.v-title{ font-family:var(--display); font-weight:400; letter-spacing:0.01em; line-height:1;
+  font-size:calc(var(--u)*7); margin:calc(var(--u)*2.4) 0 0; max-width:92%; }
+.v-rule{ width:calc(var(--u)*10); height:calc(var(--u)*0.9); background:var(--orange); margin-top:calc(var(--u)*2.6); flex:none; }
+.v-body{ flex:1; min-height:0; display:flex; flex-direction:column; justify-content:center; margin:calc(var(--u)*3) 0; }
+.v-note{ font-size:calc(var(--u)*2.3); font-weight:500; line-height:1.35; color:var(--muted); }
+.v-foot{ display:flex; align-items:center; gap:calc(var(--u)*1.6); flex:none; }
+.v-foot img{ width:calc(var(--u)*5); height:calc(var(--u)*5); }
+.v-foot .name{ font-family:var(--display); font-size:calc(var(--u)*2.6); letter-spacing:0.02em; line-height:1; }
+.v-foot .stamp{ font-family:var(--mono); font-size:calc(var(--u)*1.5); margin-top:calc(var(--u)*0.5); }
+.v-foot .src{ margin-left:auto; font-family:var(--mono); font-size:calc(var(--u)*1.5); color:var(--muted); text-align:right; max-width:55%; }
+
+/* stat — one number carries the argument */
+.stat-num{ font-family:var(--display); font-size:calc(var(--u)*30); line-height:0.9; letter-spacing:0.01em; }
+.stat-label{ font-size:calc(var(--u)*3.6); font-weight:700; line-height:1.2; margin-top:calc(var(--u)*2.4); max-width:85%; }
+
+/* compare — two columns; .is-key marks the side the post argues for */
+.cmp{ display:grid; grid-template-columns:1fr 1fr; gap:calc(var(--u)*2.4); height:100%; }
+.cmp .col{ background:var(--ash); border:2px solid var(--ink); border-radius:calc(var(--u)*2.4); overflow:hidden; display:flex; flex-direction:column; }
+.cmp .head{ font-family:var(--display); font-size:calc(var(--u)*3.6); letter-spacing:0.02em; padding:calc(var(--u)*2) calc(var(--u)*2.6); border-bottom:2px solid var(--ink); }
+.cmp .col.is-key .head{ background:var(--ink); color:var(--white); }
+.cmp ul{ list-style:none; margin:0; padding:calc(var(--u)*1.2) calc(var(--u)*2.6); flex:1; display:flex; flex-direction:column; justify-content:space-evenly; }
+.cmp li{ font-size:calc(var(--u)*2.7); font-weight:500; line-height:1.25; padding:calc(var(--u)*1.2) 0; border-bottom:1px solid #cfcfca; }
+.cmp li:last-child{ border-bottom:0; }
+
+/* steps — a short ordered sequence; mark the one that matters with .is-key */
+.steps{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:calc(var(--u)*1.6); }
+.steps li{ display:flex; align-items:center; gap:calc(var(--u)*2.4); background:var(--ash); border:2px solid var(--ink);
+  border-radius:calc(var(--u)*2); padding:calc(var(--u)*1.6) calc(var(--u)*2.4); }
+.steps .n{ font-family:var(--display); font-size:calc(var(--u)*4.4); line-height:1; width:calc(var(--u)*6); height:calc(var(--u)*6);
+  display:flex; align-items:center; justify-content:center; background:var(--ink); color:var(--white); flex:none; }
+.steps .is-key .n{ background:var(--orange); }
+.steps b{ display:block; font-size:calc(var(--u)*2.9); font-weight:700; line-height:1.2; }
+.steps span{ display:block; font-size:calc(var(--u)*2.2); font-weight:500; line-height:1.3; color:var(--muted); margin-top:calc(var(--u)*0.4); }
+
+/* bars — a few numbers side by side; set each width with style="--v:<0-100>" */
+.bars{ display:flex; flex-direction:column; gap:calc(var(--u)*2.2); }
+.bars .row{ display:grid; grid-template-columns:calc(var(--u)*22) 1fr; align-items:center; gap:calc(var(--u)*2); }
+.bars .lab{ font-size:calc(var(--u)*2.5); font-weight:700; line-height:1.2; }
+.bars .track{ display:flex; align-items:center; gap:calc(var(--u)*1.4); }
+.bars .bar{ height:calc(var(--u)*5.4); width:calc(var(--v) * 0.82%); min-width:calc(var(--u)*0.8); background:var(--ink); }
+.bars .is-key .bar{ background:var(--orange); }
+.bars .val{ font-family:var(--display); font-size:calc(var(--u)*3.6); line-height:1; white-space:nowrap; }
+.stage.wide .frame{ padding:calc(var(--u)*5.5) calc(var(--u)*8); }
+.stage.wide .v-body{ margin:calc(var(--u)*2.4) 0; }
+.v-foot img{ mix-blend-mode:multiply; }   /* drops the logo's white ground into the basalt */

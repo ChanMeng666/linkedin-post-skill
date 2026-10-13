@@ -1,12 +1,14 @@
 {
   "name": "linkedin-post-skill",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "type": "module",
-  "description": "Claude Code skill: write on-brand LinkedIn posts (idea + event-recap) with Caldera-styled visuals and draft them into the LinkedIn composer.",
+  "description": "Claude Code skill: turn an idea into a post for LinkedIn and X, in a studied voice, with a Mermaid or HTML-rendered visual when the content has a shape.",
   "scripts": {
     "render:mermaid": "node scripts/render-mermaid.mjs",
     "render:card": "node scripts/render-card.mjs",
+    "render:html": "node scripts/render-html.mjs",
+    "count": "node scripts/count.mjs",
     "gen:image": "node scripts/gen-image.mjs"
   },
   "dependencies": {

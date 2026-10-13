@@ -23,6 +23,12 @@ the skill needn't load the whole repo each run.
 - Chinese-speaking developer communities (中文社区)
 - Te Ao Māori partners and cultural-technology collaborators
 
+### Accounts
+- **LinkedIn:** Chan's personal profile. The audiences above.
+- **X:** free tier, so every post is written to the 280-character limit and anything longer
+  becomes a thread. No long-form posts. Handle **not recorded yet** (fill in here). Audience there: AI engineers, open-source maintainers, people
+  who use the tools she writes about. See `platforms.md`.
+
 ## Color — Caldera palette
 
 | Token | Hex | Role |
@@ -60,6 +66,12 @@ the skill needn't load the whole repo each run.
 - Do not skew, rotate, add effects, or pair with a generated wordmark.
 
 ## Voice — verbal half of the brand
+
+**How posts are written lives in `voice.md`.** This section is the brand layer underneath it:
+which nouns Chan uses and which words she doesn't. Where the two seem to pull apart, `voice.md`
+wins for posts: precise nouns, yes, but in sentences a person would say aloud, with each term
+explained in passing the first time. "Architecture-grade" describes the accuracy of the
+vocabulary, not the density of the sentence.
 
 **Principles:**
 1. **Architecture-grade vocabulary** — engineering nouns over marketing adjectives.

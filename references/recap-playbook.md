@@ -1,6 +1,6 @@
 # Event-recap playbook
 
-How to turn an offline tech event into a network-growing LinkedIn recap. The goal is **social-circle
+How to turn an offline tech event into a network-growing recap, mainly for LinkedIn. The goal is **social-circle
 expansion**: credit the right people/orgs accurately, add genuine personal reflection, and tag people
 so the post reaches their networks.
 
@@ -12,7 +12,7 @@ Ask for whatever she has (don't block on all of it):
 - **Orgs:** organizing company/community, sponsors, companies whose people presented.
 - **Her angle:** 1–2 things that genuinely stuck with her, and any moment she wants to highlight.
 - **Photos:** file paths, or an explicit "none". **Ask this first** — it decides the entire visual
-  branch in `SKILL.md` Step 3, and asking after the copy is drafted wastes a round-trip.
+  branch in `SKILL.md` Step 4, and asking after the copy is drafted wastes a round-trip.
 
 ## 2. Verify before you mention (user provides → tool verifies)
 
@@ -31,7 +31,7 @@ For each person/org:
 - **If a name can't be verified, do NOT invent a profile.** Keep the person in the copy as plain
   text and mark them in the mention table as "plain text — no confirmed profile."
 
-This feeds the `## Who to @mention` table in `post.md` (see `SKILL.md` Step 4). Do not write a
+This feeds the `## Who to mention` table in `post.md` (see `SKILL.md` Step 5). Do not write a
 separate `MENTIONS.md` — one file, one handoff.
 
 ### What Chan does with it (so you write the table for the right job)
@@ -43,6 +43,13 @@ notifies nobody. Chan pastes the copy with plain names, then converts each one. 
 - The **"Pick the entry that says"** column is the most valuable thing in your table.
 - Explicitly flag near-misses: *"the first Jane Doe in the list is a different person."*
 - Keep it to a **handful of well-chosen tags**. Don't hand her a list of 20 people to convert.
+
+### On X
+
+A recap on X is one moment from the night with one photo, not a thank-you list (`platforms.md`).
+Mentions there are typed as `@handle`, so the handle itself has to be right: take it only from the
+person's own site, LinkedIn profile or GitHub profile, or from the event's official page, and note
+which in the table. Two handles at most. No verified handle means the plain name.
 
 ## 3. Photos (the real visual)
 
@@ -67,10 +74,13 @@ what earns the reads. No diagram or branded card competes with it. Do not render
   and move on.
 - **If she has no usable photos:** *offer* a single branded card (a quote or field-note) via
   `references/visuals.md` §3 — offered, not assumed. Text-only is fine too. **Never a diagram.**
+- **For X:** name the single strongest photo. Landscape crops best there.
 
 ## 4. Write the recap
 
-Follow the recap anatomy in `voice-and-structure.md`. Weave credit into specific moments ("loved
+Follow the recap shape in `platforms.md` and the registers in `voice.md`: a Story spine (what the
+night was like and what it changed for Chan) carrying Operator facts (who spoke, what they said,
+how many came). Include one honest note if there is one; it makes the praise believable. Weave credit into specific moments ("loved
 Jane Doe's talk on …"), never a bare wall of names. Keep Chan's personal reflection as the spine.
 
 **Write names as plain text in the copy — no `@` prefix.** The `@` belongs in the *instruction*
@@ -83,3 +93,5 @@ looks like a tag that failed. She types the `@` herself when she converts each o
 - Get titles/companies right — a wrong title is worse than none.
 - Thank organizers and hosts explicitly; they amplify recaps the most.
 - Keep it warm and specific. Generic "great event, great people!" recaps don't grow a network.
+- Five names or fewer in the body, each with the thing they did. A longer list of thanks goes in
+  one closing sentence or gets cut.

@@ -1,31 +1,14 @@
-%% Example of a diagram that PASSES the visual gate (SKILL.md Step 3):
-%% two contrasting paths (≥3 parts each), a named relationship between them, and a shared
-%% consequence — structure a reader can't absorb from the copy in one pass.
+%% Example of content that belongs in Mermaid (references/visuals.md §2): a loop.
+%% The arrow going back from review to the brief is the point; take it away and the
+%% meaning is gone. Six nodes, short labels, one accent.
 %% No `--- config ---` block: the brand theme is applied by scripts/render-mermaid.mjs.
 flowchart TB
-    TITLE["The AI-Native Developer Mindset<br/>Stop typing. Start architecting."]:::ink
-
-    TITLE --> OLD_HEAD["🐎 OLD WAY<br/>Pre-AI era"]:::surface
-    TITLE --> NEW_HEAD["🚗 AI-NATIVE WAY<br/>2026 and beyond"]:::glare
-
-    OLD_HEAD --> O1["Hand-code every line"]
-    O1 --> O2["Microservices by default"]
-    O2 --> O3["Hide AI assistance"]
-    O3 --> O4["Memorize syntax"]
-    O4 --> O5["Toy projects only"]
-
-    NEW_HEAD --> N1["Architect &amp; orchestrate"]
-    N1 --> N2["One monolith, one repo"]
-    N2 --> N3["Embrace transparency"]
-    N3 --> N4["Master the WHY, not HOW"]
-    N4 --> N5["Ship real production apps"]
-
-    O5 --> EVOLVE["THE EVOLUTION"]:::accent
-    N5 --> EVOLVE
-
-    EVOLVE --> R1["Faster shipping"]:::surface
-    EVOLVE --> R2["Stronger interviews"]:::surface
-    EVOLVE --> R3["Real-world impact"]:::surface
+    GOAL["Set the goal"]:::ink --> DONE["Define 'done'"]
+    DONE --> DRAFT["Model drafts"]
+    DRAFT --> REVIEW{"You review"}:::accent
+    REVIEW -- "not right" --> BRIEF["Sharpen the brief"]
+    BRIEF --> DRAFT
+    REVIEW -- "meets 'done'" --> SHIP["Ship"]:::ink
 
     classDef accent  fill:#FC5000,stroke:#070607,color:#fff;
     classDef ink     fill:#070607,stroke:#070607,color:#fff;

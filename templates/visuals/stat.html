@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>stat</title>
+<!-- One number that carries the argument. Keep the number to 5 characters or fewer.
+     Copy to output/<date>-<slug>/visual.html (same folder depth, so the paths below still
+     resolve), replace the text, then render once per platform:
+       node scripts/render-html.mjs output/<date>-<slug>/visual.html output/<date>-<slug>/visual-linkedin.png --size portrait
+       node scripts/render-html.mjs output/<date>-<slug>/visual.html output/<date>-<slug>/visual-x.png --size wide -->
+<link rel="stylesheet" href="../../templates/brand.css">
+</head>
+<body>
+<div class="stage portrait">
+  <div class="frame">
+    <div class="v-eyebrow"><span class="dot"></span>Eyebrow label</div>
+    <div class="v-body">
+      <div class="stat-num">37x</div>
+      <div class="v-rule"></div>
+      <div class="stat-label">What the number measures, in one plain line.</div>
+      <div class="v-note" style="margin-top:calc(var(--u)*1.6)">The comparison that makes it mean something: from what, to what, over how long.</div>
+    </div>
+    <div class="v-foot">
+      <img src="../../templates/assets/chan-monkey-logo-black.svg" alt="">
+      <div><div class="name">Chan Meng</div><div class="stamp">chanmeng.org</div></div>
+      <div class="src">Source, or delete this line</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

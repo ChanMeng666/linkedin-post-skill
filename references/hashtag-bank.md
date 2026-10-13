@@ -1,9 +1,11 @@
 # Hashtag bank
 
 Curated tag sets for Chan's posts. **Rules:**
-- Count by mode, on the final line: **8–12** for idea posts · **5–8** for takes (a short opinion post
-  reads worse under a long tag block) · **6–10** for recaps.
-- Mix tiers: 2–3 **broad** (reach) + 4–6 **niche** (relevance) + 1–2 **personal/brand**.
+- **LinkedIn: none, or 3 to 5, on the final line.** Both writers the voice is modelled on use five
+  or fewer, and often none. A story post usually reads better with none. A long tag block is on
+  the "Never" list in `voice.md`.
+- **X: none.** The one exception is an event's official tag on a recap.
+- When using them: 1–2 **broad** (reach) + 2–3 **niche** (relevance). At most one personal tag.
 - Match the post's actual topic — don't dump the whole list. Prefer tags Chan's audience follows.
 - For recaps, lead with the **official event hashtag** if one exists (check the event page).
 - CamelCase multi-word tags for readability (`#AIEngineering`, not `#aiengineering`).
@@ -36,7 +38,8 @@ Curated tag sets for Chan's posts. **Rules:**
 `#ChanMeng` `#SubtractionForLife`  <!-- use sparingly: at most one per post -->
 
 ## Worked examples
-- **AI-native dev idea post:** `#AIEngineering #PromptEngineering #SoftwareDevelopment #AIOrchestration #TechCareers #ClaudeAI #DeveloperMindset #FutureOfCoding #VibeCoding #TechInterviews`
-- **FemTech idea post:** `#FemTech #WomensHealth #AIAgents #HealthTech #WomenInAI #BuildInPublic #AIEngineering #TechForGood`
-- **Take on an agent-tooling article:** `#AIAgents #ModelContextProtocol #AIEngineering #SoftwareEngineering #LLM #BuildInPublic`
-- **Auckland AI meetup recap:** `#<OfficialEventTag> #AucklandTech #AIEngineering #TechCommunity #AIAgents #Networking #NZTech #KnowledgeSharing`
+- **AI-native dev idea post:** `#TechCareers #AIEngineering #SoftwareEngineering`
+- **FemTech idea post:** `#FemTech #WomensHealth #AIAgents #HealthTech`
+- **Take on an agent-tooling article:** `#AIAgents #ModelContextProtocol #AIEngineering`
+- **Auckland AI meetup recap:** `#<OfficialEventTag> #AucklandTech #AIEngineering #NZTech`
+- **Personal story:** none.
