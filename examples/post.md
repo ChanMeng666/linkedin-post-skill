@@ -13,7 +13,8 @@
 
 ## LinkedIn
 
-Copy everything inside the block, exactly as it is.
+Copy everything inside the block, exactly as it is. The three bold lead-ins are look-alike
+Unicode letters and paste as they are; `node scripts/style.mjs examples/post.md --plain` removes them.
 
 ```text linkedin
 A student asked me how to get through technical interviews when their whole portfolio was built with AI help.
@@ -26,11 +27,11 @@ Most teams that are hiring already use AI to ship. The interviewer isn't checkin
 
 So show them that. Three things I suggested:
 
-Be able to explain every choice. Why this stack, why this data model, what you gave up. If the model picked it and you can't say why it's right, that's the gap to close before the interview.
+𝗕𝗲 𝗮𝗯𝗹𝗲 𝘁𝗼 𝗲𝘅𝗽𝗹𝗮𝗶𝗻 𝗲𝘃𝗲𝗿𝘆 𝗰𝗵𝗼𝗶𝗰𝗲. Why this stack, why this data model, what you gave up. If the model picked it and you can't say why it's right, that's the gap to close before the interview.
 
-Treat prompting as something you studied. Read the official prompting docs, and write a prompt the way you'd write an API contract: explicit, structured, easy to check.
+𝗧𝗿𝗲𝗮𝘁 𝗽𝗿𝗼𝗺𝗽𝘁𝗶𝗻𝗴 𝗮𝘀 𝘀𝗼𝗺𝗲𝘁𝗵𝗶𝗻𝗴 𝘆𝗼𝘂 𝘀𝘁𝘂𝗱𝗶𝗲𝗱. Read the official prompting docs, and write a prompt the way you'd write an API contract: explicit, structured, easy to check.
 
-Build one real thing, with real users, in one codebase. A single repo lets the model see the whole flow in one context window, so what it writes is better. It also gives you a real system to talk about.
+𝗕𝘂𝗶𝗹𝗱 𝗼𝗻𝗲 𝗿𝗲𝗮𝗹 𝘁𝗵𝗶𝗻𝗴, 𝘄𝗶𝘁𝗵 𝗿𝗲𝗮𝗹 𝘂𝘀𝗲𝗿𝘀, 𝗶𝗻 𝗼𝗻𝗲 𝗰𝗼𝗱𝗲𝗯𝗮𝘀𝗲. A single repo lets the model see the whole flow in one context window, so what it writes is better. It also gives you a real system to talk about.
 
 Hiding the tool makes it look like you haven't noticed what changed. Explaining how you directed it makes you look like someone who can run a project.
 
@@ -84,6 +85,8 @@ Source: `visual.html` (from `templates/visuals/compare.html`).
 
 - **Four points became three.** "Real projects beat toy projects" and "one codebase" were merged,
   because the reason for both is the same: something real to talk about.
+- **Three lead-ins are bold**, one per point, so the points can be found at a glance. Nothing
+  else is: not the opening, not the closing line. See `platforms.md` → "Bold on LinkedIn".
 - **The horse-and-buggy metaphor is gone**, along with the headline, the emoji numbering and the
   tick-and-cross list. See the "Never" list in `voice.md`.
 - **The closing question is addressed to interviewers**, not to everyone. It's one Chan would want

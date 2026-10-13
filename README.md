@@ -87,13 +87,20 @@ node scripts/count.mjs output/<date>-<slug>/post.md
 measures both blocks (LinkedIn against 3,000; each X post against 280, weighted the way X counts)
 and flags house-style slips.
 
+**Bold, as signposts.** LinkedIn feed posts have no bold button and render no markdown; the bold
+you see there is look-alike Unicode letters. The skill uses it for label lines and the lead-in of
+each point, so a long post can be scanned, and nowhere else: those letters are skipped by some
+screen readers and invisible to search, so the first line, names, hashtags and links stay plain.
+`scripts/style.mjs` converts `**runs**` in the LinkedIn block (`--plain` reverts), and `count.mjs`
+enforces the budget. X posts stay plain.
+
 ## Repository layout
 
 ```
 SKILL.md            The orchestrator (invoked as /linkedin-post)
 references/         voice · platforms · brand · visuals · recap playbook · hashtag bank
 templates/          brand.css · dither.js · visuals/ (stat, compare, bars, steps, hero) · quote card · Mermaid theme · logo
-scripts/            count · render-html · render-mermaid · render-card · render-video
+scripts/            count · style · render-html · render-mermaid · render-card · render-video
 examples/           A worked post.md for both platforms, with its visual and a Mermaid example
 output/             Generated drafts, one folder per run (gitignored)
 ```

@@ -97,10 +97,16 @@ when it is a claim with evidence. Recaps use a Story spine with Operator facts.
 2. **Write the second platform from the idea, not from the first draft.** Different reader,
    different opening, different length. `platforms.md` → "What changes in translation".
 3. **Run the plain-language pass** (`voice.md`, last section) on both.
-4. **Write the drafts into `post.md`** (format in Step 5) and run
-   `node scripts/count.mjs output/<date>-<slug>/post.md`. Fix everything it flags. Read the
-   LinkedIn preview line it prints: if the first 210 characters are warm-up, rewrite the top.
-5. **Show Chan the copy and iterate** before spending effort on a visual.
+4. **Write the drafts into `post.md`** (format in Step 5).
+5. **Mark the signposts on LinkedIn.** If the post has label lines or parallel points, wrap each
+   in `**…**` and run `node scripts/style.mjs output/<date>-<slug>/post.md`, which turns them
+   into bold that survives a paste. What may be bold, how much, and why it is rationed:
+   `platforms.md` → "Bold on LinkedIn". Stories and most takes get none. X gets none.
+6. **Run `node scripts/count.mjs output/<date>-<slug>/post.md`** and fix everything it flags.
+   Read the LinkedIn preview line it prints: if the first 210 characters are warm-up, rewrite
+   the top.
+7. **Show Chan the copy and iterate** before spending effort on a visual. Say whether the
+   LinkedIn copy carries bold, and that `style.mjs --plain` removes it.
 
 ### Step 4 — Decide the visual
 
@@ -168,6 +174,9 @@ Then, in chat: the file path, the counts, the visual route in one line, and any 
 - **Only real material.** No invented anecdotes, quotes, numbers or people.
 - **English, NZ spelling.** The voice in `voice.md`; nothing from its "Never" list.
 - **Each platform gets its own post.** Never a trimmed copy of the other.
+- **Bold is a signpost, not emphasis.** LinkedIn only, label lines and lead-ins only, never the
+  first line, a name, a hashtag or a link. It costs screen-reader and search legibility, so it
+  is rationed (`platforms.md`).
 - **Never open LinkedIn or X.** The deliverable is `post.md`. Chan publishes.
 - **Never invent an identity or a handle.** Unverified means plain text.
 - **Don't reuse the reference writers' sentences, stories or names.** The system borrows their

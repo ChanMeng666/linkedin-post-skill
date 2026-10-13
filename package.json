@@ -1,6 +1,6 @@
 {
   "name": "linkedin-post-skill",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "private": true,
   "type": "module",
   "description": "Claude Code skill: turn an idea into a post for LinkedIn and X, in a studied voice, with a Mermaid or HTML-rendered visual when the content has a shape.",
@@ -9,6 +9,7 @@
     "render:card": "node scripts/render-card.mjs",
     "render:html": "node scripts/render-html.mjs",
     "count": "node scripts/count.mjs",
+    "style": "node scripts/style.mjs",
     "render:video": "node scripts/render-video.mjs"
   },
   "dependencies": {

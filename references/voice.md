@@ -189,7 +189,9 @@ skill; they are retired.
 - A headline as the first line, with or without emoji.
 - "Here's the framework", "Here's what I learned", "Let me break it down", "Let that sink in".
 - Emoji-numbered points, `✅/❌` blocks, stacks of `→` lines, 👇 pointing at anything.
-- Bold or capitals for emphasis. Neither platform renders markdown, and capitals shout.
+- Capitals for emphasis, and bold for emphasis. Bold on LinkedIn is for signposts only (label
+  lines and lead-ins; rules in `platforms.md` → "Bold on LinkedIn"). A word that needs bold to
+  land is a sentence that needs rewriting.
 - "Stop doing X. Start doing Y." as a punch line.
 - "What's your take? Drop your thoughts below."
 - A wall of eight or more hashtags.
