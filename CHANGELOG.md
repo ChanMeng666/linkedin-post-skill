@@ -7,6 +7,43 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.0] - 2026-10-13
+
+Three ideas borrowed from a code-drawn illustration pipeline: draw bitmaps in code and not with
+an image model, step a headless browser frame by frame into ffmpeg, and let lines look drawn by
+hand.
+
+### Added
+- **The plate motif in code, `templates/dither.js`.** A field of square pixels in ordered dither
+  (8×8 Bayer), a faint ruled grid and corner crop marks, drawn on canvas inside the existing
+  HTML-to-PNG pipeline. It is the same vocabulary as the README artwork in the brand's source
+  repo. New `templates/visuals/hero.html` uses it for cover images: an ink plate, the claim in
+  the display face, one orange pixel as the full stop.
+- **`scripts/render-video.mjs`.** Renders any HTML visual or `.mmd` diagram to a short H.264 MP4.
+  Animations are seeked frame by frame in headless Chromium and piped to ffmpeg, so output is
+  exact and repeatable. Entrance animations for every template live in `brand.css` under
+  `.stage.motion`, so stills are unaffected. Mermaid diagrams reveal node by node, edge by edge.
+- **`render-mermaid.mjs --look hand`**, Mermaid's sketched renderer with the brand theme and a
+  fixed seed. Also accepts an `.svg` output path. `examples/diagram-hand.mmd` shows the
+  label-colour rule that look needs.
+
+### Removed
+- **The OpenAI image route**: `scripts/gen-image.mjs`, `scripts/lib/load-env.mjs`, `.env.example`
+  and the `openai` dependency. The skill now uses no image model and no API key; the hero
+  plate covers the case that route existed for.
+
+### Changed
+- `references/brand.md` → Imagery direction rewritten from the current brand sources. The old
+  text described a halftone dot gradient from orange to violet, a look the brand had already
+  retired; it now names the dither field, the orange pixel and the plate furniture, and lists
+  halftone, colour ramps and grain as retired.
+
+- **Display face is now Bebas Neue**, following chanmeng.org, with Anton as the fallback.
+
+### Fixed
+- `render-html.mjs` redraws canvas textures after `--size` changes the stage, so they are not
+  stretched.
+
 ## [2.0.0] - 2026-10-13
 
 A redesign: a studied voice, a second platform, and visuals chosen by the shape of the content.

@@ -1,4 +1,4 @@
-# Secrets — never commit the OpenAI key
+# Secrets — never commit a local env file
 .env
 .env.local
 

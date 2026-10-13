@@ -32,7 +32,7 @@ Find the row that matches what the post is actually about. Stop at the first mat
 | A shape none of the above fits, and the content deserves it | **Bespoke HTML** | §5 |
 | A take on an article with a link preview | **Nothing.** The preview card is the visual | — |
 | An opinion or a story with no structure in it | **Nothing.** Text only | — |
-| Needs an abstract hero image and nothing else fits | OpenAI image, last resort | §6 |
+| Needs a cover image and has no photo, screenshot or structure to show | **HTML · hero** (ink plate with a dither field) | §6 |
 
 **Mermaid or HTML?** Mermaid when the *relationships* are the content: take the arrows away and
 the meaning is gone. HTML when the *layout, the numbers or the type* are the content. A straight
@@ -46,6 +46,8 @@ line of boxes joined by arrows is a list; use `steps`. Two columns of boxes is a
 - a chart of numbers Chan didn't measure or can't source
 - a generated image on top of real photos, or on top of an article's link preview
 - more than one generated visual per post
+- anything from an image model. Every visual here is drawn by code: repeatable, on-brand, and
+  free of the look of generated art
 
 ## Sizes per platform
 
@@ -60,9 +62,10 @@ for one platform (very tall on X, very wide on LinkedIn).
 
 ## Brand rules for anything generated
 
-Full detail in `brand.md`. Basalt ground `#E2E2DF`, never pure white. **One orange `#FC5000`
+Full detail in `brand.md`. The motif is the square pixel: no round dots, no halftone, no colour
+gradients, no grain. Basalt ground `#E2E2DF`, never pure white. **One orange `#FC5000`
 accent per visual**, on the element the post is about. Ink `#070607` for text. Violet `#524AE9`
-decorative only, never text. Anton for display, DM Sans for body. Flat: no shadows, no gradients.
+decorative only, never text. Bebas Neue for display (an all-caps face), DM Sans for body. Flat: no shadows, no gradients.
 
 Words on a visual follow `voice.md` too: plain, short, no slogans. A label is a few words. If a
 box needs a sentence, the content is prose and belongs in the post.
@@ -114,6 +117,23 @@ For structure where the arrows carry meaning.
 
 `examples/diagram.mmd` is a worked example: a review loop, where the arrow going back is the
 point of the post.
+
+### The sketched look
+
+```
+node scripts/render-mermaid.mjs output/<date>-<slug>/diagram.mmd --look hand
+```
+
+Switches Mermaid to its hand-drawn renderer: slightly wobbly ink lines and hatched fills, in the
+same brand colours, seeded so it renders the same every time. Use it when the diagram is a way
+of thinking and not a specification (a habit, a loop, a rough model of how something works),
+or when the post is in the Story register and a ruled diagram would feel cold. Keep the default
+look for architecture, anything with more than seven nodes, and anything a reader might implement
+from.
+
+Hatched fills make white text hard to read, so in this look **every label stays ink-coloured**:
+don't use the `ink` class, and define the accent as
+`classDef accent fill:#FC5000,stroke:#070607,color:#070607;`. `examples/diagram-hand.mmd` shows it.
 
 ## 3. HTML layouts → PNG
 
@@ -180,19 +200,63 @@ both work from the one file. `templates/brand.css` has the tokens (`--orange`, `
 `--display`, `--body`, `--mono`) and helpers (`.block`, `.b-ink`, `.b-orange`, `.card`, `.mono`).
 Logo: `templates/assets/chan-monkey-logo-black.svg`, never recoloured. Render as in §3.
 
-## 6. OpenAI image, last resort
+## 6. Hero: the cover plate
 
-Only when the post needs an abstract hero image and no real asset, diagram or layout fits.
+For a post that wants a cover image and has nothing real or structural to show: an announcement,
+a story with no photo, the first post of an X thread. It is the brand's own plate, the same
+vocabulary as the hero and cover on Chan's GitHub README:
+
+- an **ink plate** with the claim in the display face, in ash
+- **one orange pixel** as the full stop, the plate's only accent
+- a **dither field**: square pixels in ordered dither, thickening away from the type (to the
+  right in landscape, downward in portrait)
+- a faint ruled **grid** and a **crop mark** in each corner
+- the monkey mark and the name in mono as the signature
+
+Everything is **drawn in code** by `templates/dither.js`. Ordered dither is a function of
+position, so the same file always renders the same pixels. No image model, no API key.
+
+1. Copy `templates/visuals/hero.html` to `output/<date>-<slug>/visual.html`.
+2. Set the eyebrow and the title. The title is the post's claim in about six words; it is the
+   only information on the image, so it has to be worth reading alone. End it with
+   `<span class="stop"></span>` and no typed full stop.
+3. Leave the orange alone: the full stop is the one accent, so the eyebrow has no orange square.
+4. Render as in §3.
+
+In a bespoke layout, `<canvas class="dither">` fills whatever box CSS gives it (`data-angle` sets
+the direction it thickens, `data-cell` the pixel pitch) and `<canvas class="furniture">` as the
+first child of `.stage` draws the grid and crop marks. Add `plate-ink` to the stage for the ink
+ground, and include `<script src="../../templates/dither.js"></script>` after the stage.
+
+A hero carries less than any other route. Prefer a photo, a screenshot or a layout with real
+content whenever one exists.
+
+## 7. Motion: the same visual as a short video
+
+Only when Chan asks for a video or an animated version. A still is the default; most posts
+don't need movement, and a video nobody asked for is a larger kind of filler.
 
 ```
-node scripts/gen-image.mjs "<prompt>" output/<date>-<slug>/image.png --size landscape
+node scripts/render-video.mjs output/<date>-<slug>/visual.html output/<date>-<slug>/visual-x.mp4 --size wide
+node scripts/render-video.mjs output/<date>-<slug>/visual.html output/<date>-<slug>/visual-linkedin.mp4 --size portrait
+node scripts/render-video.mjs output/<date>-<slug>/diagram.mmd  output/<date>-<slug>/diagram.mp4 --size portrait [--look hand]
 ```
 
-Prompt from `brand.md` → Imagery direction: risograph halftone, orange to violet dot gradient,
-flat, abstract. **Forbidden:** AI portraits of Chan, stock tech or business scenes, glossy 3D.
+- **HTML visuals** need no changes. The script switches on entrance animations that already live
+  in `brand.css`: the title rises, then rows, bars or columns arrive in reading order (in
+  `compare`, the side the post argues for arrives last), then everything holds.
+- **Mermaid diagrams** reveal in source order: each node fades in, then each arrow draws itself.
+  So write the `.mmd` in the order the idea should be told.
+- Flags: `--duration` in seconds (default 6), `--fps` (default 30). No audio. Output is H.264 MP4
+  at 1600×900 or 1080×1350, which both platforms accept as native video.
+- Frames are stepped, not recorded, so the result is exact and repeatable. A 6-second clip takes
+  about 20 to 30 seconds to render. Needs `ffmpeg` on PATH (exit code 2 if missing).
+- For a bespoke layout, add your own rules under `.stage.motion …` so the still is untouched.
 
-**Exit code 2 means no API key.** Tell Chan how to set it (`.env` / `.env.local`), then use
-another route if one fits, or ship text only.
+Check the result before handing it over: pull a few frames with
+`ffmpeg -ss <t> -i <file>.mp4 -frames:v 1 frame.png` and Read them. Confirm nothing is clipped
+mid-animation and the final frame matches the PNG. List the MP4 beside the PNG in `post.md`; Chan
+picks which to attach. A post takes an image or a video, not both.
 
 ---
 

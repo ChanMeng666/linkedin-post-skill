@@ -110,7 +110,13 @@ Read `references/visuals.md` now. In short:
 - Otherwise match the content's shape: arrows that matter → **Mermaid**; a comparison, a number,
   a few numbers, a straight sequence → an **HTML layout** rendered to PNG; one quotable line → a
   **quote card**; no shape → **text only**.
+- A post that needs a cover and has nothing to show → the **hero plate**: ink ground, a dither
+  field of square pixels, one orange pixel. No AI-generated images, ever, and no halftone dots
+  or colour gradients (retired from the brand; see `brand.md`).
+- A diagram that should feel like a whiteboard sketch → Mermaid with `--look hand`.
 - Render per platform: portrait for LinkedIn, landscape for X.
+- **Motion is opt-in.** If Chan asks for a video or an animated version, the same HTML or `.mmd`
+  renders to a short MP4 with `render-video.mjs`. Don't make one by default.
 - Read every PNG you render. If it repeats the copy or looks crowded, fix it or drop it.
 
 One generated visual per post at most. Say in one line which route you took and why, including
@@ -133,7 +139,8 @@ don't apply:
    column matters most on LinkedIn: give the headline that separates the right person from their
    namesakes, and flag near-misses. Unverified people stay plain text on both platforms.
 5. **`## Photos`.** Suggested order, lead shot first, and which one goes on X.
-6. **`## Visual`.** Each generated file, which platform it is for, and what it shows.
+6. **`## Visual`.** Each generated file (PNG, and MP4 if one was made), which platform it is for,
+   and what it shows.
 7. **`## Link`** (take mode). The URL, and where to put it on each platform: LinkedIn body
    (preview card) or first comment; X reply. Recommend one. Never a link preview and an attached
    image on the same LinkedIn post.
@@ -153,8 +160,8 @@ Then, in chat: the file path, the counts, the visual route in one line, and any 
   `node_modules/` is gitignored, so a fresh clone won't have it; `ERR_MODULE_NOT_FOUND` means this.
 - `render-mermaid.mjs` falls back to a global `mmdc` when the local one is missing, so a Mermaid
   render succeeding doesn't mean the HTML routes will.
-- The OpenAI image route needs `OPENAI_API_KEY` in `.env` (copy `.env.example`). Without it
-  `gen-image.mjs` exits 2. It's a last resort anyway.
+- Video (`render-video.mjs`) also needs `ffmpeg` on PATH; the script exits 2 without it.
+- No image model and no API key are used anywhere. Every visual is drawn by code in this repo.
 
 ## Guardrails
 

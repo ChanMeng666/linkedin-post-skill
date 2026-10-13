@@ -66,6 +66,8 @@ try {
     }, { selector, size: args.size, all: Object.keys(SIZES) });
   }
   await page.evaluate(() => document.fonts.ready);
+  // Canvas textures (templates/dither.js) are sized to their box, so redraw after the swap.
+  await page.evaluate(() => window.drawPlate?.());
   await page.waitForTimeout(150);
 
   fs.mkdirSync(path.dirname(path.resolve(output)), { recursive: true });

@@ -1,0 +1,15 @@
+%% The same loop as diagram.mmd, written for the sketched renderer:
+%%   node scripts/render-mermaid.mjs examples/diagram-hand.mmd --look hand
+%% Sketched fills are hatched, so white text on a dark fill is hard to read. Keep every label
+%% ink-coloured: the accent node uses orange with ink text, and the `ink` class is not used.
+flowchart TB
+    GOAL["Set the goal"] --> DONE["Define 'done'"]
+    DONE --> DRAFT["Model drafts"]
+    DRAFT --> REVIEW{"You review"}:::accent
+    REVIEW -- "not right" --> BRIEF["Sharpen the brief"]
+    BRIEF --> DRAFT
+    REVIEW -- "meets 'done'" --> SHIP["Ship"]:::glare
+
+    classDef accent  fill:#FC5000,stroke:#070607,color:#070607;
+    classDef glare   fill:#F5F28E,stroke:#070607,color:#070607;
+    classDef surface fill:#F7F6F2,stroke:#070607,color:#070607;

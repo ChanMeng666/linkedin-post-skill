@@ -55,16 +55,23 @@ work for? Then the content's shape picks the route.
 | arrows that matter: a loop, a branch, a hand-off | Mermaid diagram | `scripts/render-mermaid.mjs` |
 | a before/after, one number, a few numbers, a straight sequence | HTML layout → PNG | `templates/visuals/{compare,stat,bars,steps}.html` + `scripts/render-html.mjs` |
 | one quotable line | quote card | `scripts/render-card.mjs` |
+| a cover image, with nothing real or structural to show | hero plate | `templates/visuals/hero.html` + `templates/dither.js` |
 | something else that deserves a layout | bespoke HTML → PNG | `templates/brand.css` + `scripts/render-html.mjs` |
 | an opinion or story with no structure | nothing | — |
 
+**No image model is involved.** Every visual is drawn by code in this repo, so it is repeatable
+and needs no API key. The hero plate's dither field (square pixels in ordered dither, the brand's own motif) is drawn on a canvas; Mermaid
+diagrams can take a sketched look with `--look hand`; and any visual can be rendered as a short
+MP4 with `scripts/render-video.mjs`, which steps the page's animations frame by frame in headless
+Chromium and pipes the frames to ffmpeg.
+
 HTML visuals render from one file at both sizes: `--size portrait` (1080×1350, LinkedIn) and
 `--size wide` (1600×900, X). Everything generated follows one design system ("Caldera": basalt
-canvas, a single orange accent, Anton and DM Sans, flat colour).
+canvas, a single orange accent, Bebas Neue and DM Sans, flat colour).
 
 | | |
 |---|---|
-| ![compare layout, landscape](examples/visual-x.png) | ![Mermaid loop](examples/diagram.png) |
+| ![compare layout, landscape](examples/visual-x.png) | ![Mermaid loop, sketched look](examples/diagram-hand.png) |
 
 ## The handoff
 
@@ -85,8 +92,8 @@ and flags house-style slips.
 ```
 SKILL.md            The orchestrator (invoked as /linkedin-post)
 references/         voice · platforms · brand · visuals · recap playbook · hashtag bank
-templates/          brand.css · visuals/ (stat, compare, bars, steps) · quote card · Mermaid theme · logo
-scripts/            count · render-html · render-mermaid · render-card · gen-image
+templates/          brand.css · dither.js · visuals/ (stat, compare, bars, steps, hero) · quote card · Mermaid theme · logo
+scripts/            count · render-html · render-mermaid · render-card · render-video
 examples/           A worked post.md for both platforms, with its visual and a Mermaid example
 output/             Generated drafts, one folder per run (gitignored)
 ```
@@ -97,8 +104,7 @@ output/             Generated drafts, one folder per run (gitignored)
 npm install
 npx playwright install chromium
 
-# Optional, only for the OpenAI image fallback:
-cp .env.example .env          # then set OPENAI_API_KEY (the loader also reads .env.local)
+# Optional, only for video output: install ffmpeg and make sure it is on PATH
 ```
 
 Text-only posts and `count.mjs` need nothing installed beyond Node. To make the skill invocable as
@@ -107,8 +113,8 @@ symlink at `~/.claude/skills/linkedin-post`).
 
 ## Security
 
-API keys are read from the environment or a local, git-ignored `.env` / `.env.local` file and are
-never committed. `.gitignore` excludes `.env`, `.env.local`, `node_modules/` and `output/`.
+The skill uses no API keys and calls no external model. `.gitignore` still excludes `.env`,
+`.env.local`, `node_modules/` and `output/`, so local files and drafts stay out of the repo.
 
 ## Making it yours
 
