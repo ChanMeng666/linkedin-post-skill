@@ -65,7 +65,7 @@ for one platform (very tall on X, very wide on LinkedIn).
 Full detail in `brand.md`. The motif is the square pixel: no round dots, no halftone, no colour
 gradients, no grain. Basalt ground `#E2E2DF`, never pure white. **One orange `#FC5000`
 accent per visual**, on the element the post is about. Ink `#070607` for text. Violet `#524AE9`
-decorative only, never text. Bebas Neue for display (an all-caps face), DM Sans for body. Flat: no shadows, no gradients.
+decorative only, never text. Anton for display, DM Sans for body. Flat: no shadows, no gradients.
 
 Words on a visual follow `voice.md` too: plain, short, no slogans. A label is a few words. If a
 box needs a sentence, the content is prose and belongs in the post.

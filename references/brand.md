@@ -50,14 +50,17 @@ the skill needn't load the whole repo each run.
 
 ## Typography
 
-- **Display:** Bebas Neue (Google Fonts, OFL): name, headings, stat numbers. A condensed all-caps
-  face, single weight 400; the weight comes from size, never faux-bold. This follows chanmeng.org
-  (`2d-portfolio/src/app/layout.tsx`), which is the latest decision. `brand.yaml` and the README
-  artwork still name Anton; the website wins. Anton stays in the stack as the fallback.
+- **Display:** Anton (Google Fonts, OFL): titles and stat numbers. Heavy, condensed, MIXED case
+  (not all-caps), tracking `0.02em`, single weight 400; never faux-bold.
+  **The display face goes by surface.** Every rendered asset (LinkedIn and X banners, blog share
+  images, README artwork, CV, and so the visuals this skill makes) is Anton, per `brand.yaml`
+  v2.1.1, which recorded the move from Bebas Neue to Anton on 2026-06-07. Live web text (the
+  chanmeng.org pages and the newsletter emails) is Bebas Neue. A post image sits in the same feed
+  as those banners and share cards, so it matches them.
 - **Body:** DM Sans (400/500/700) — DM Sans 500 is the workhorse.
 - **Mono:** JetBrains Mono — datestamps / paths / versions only.
 - Body never below 16px web.
-- Web font load: `https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap`
+- Web font load: `https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap`
 
 ## Logo
 
@@ -101,7 +104,8 @@ open-sourced · production · end-to-end.
 Checked on 2026-10-13 against the website repo (`2d-portfolio`: `tailwind.config.ts`,
 `src/app/globals.css`, `src/app/layout.tsx`) and the brand data repo (`ChanMeng666`:
 `data/brand.yaml`, `scripts/readme-art/kit.mjs`). Re-check those when this looks out of date.
-**Where the two disagree, the website is the latest decision.**
+**Where the two disagree, the website is the latest decision**, with one exception worked out
+from the commit history: the display face, which goes by surface (see Typography).
 
 **The motif is the pixel, not the dot.** The system is a "pixelated cyber-playground": flat colour
 blocks and square pixels with hard edges.
@@ -114,7 +118,7 @@ blocks and square pixels with hard edges.
 - **Plate furniture.** A faint ruled grid under the artwork and a crop mark in each corner.
 - **Ink plate or basalt card.** Covers sit on ink with ash type. Content visuals (comparisons,
   numbers, steps) sit on basalt with ash cards, like the blog's share images: eyebrow with an
-  orange square, display-face title, orange dash, name.
+  orange square, Anton title, orange dash, name.
 - Product screenshots and logos appear as they are, inside ash cards. Real assets over stock.
 
 **Retired, do not use:** round halftone dots, risograph dot gradients, any orange-to-violet colour
