@@ -32,8 +32,8 @@ post with paragraphs deleted, and the LinkedIn post is never an X thread glued t
 | Image | Portrait 1080×1350 takes the most feed space | Landscape 1600×900 shows uncropped |
 | Formatting | None renders. No markdown | None renders. No markdown |
 
-Long-form posts on X (past 280) need a Premium account. **Chan's X account status is recorded in
-`brand.md`.** If it says unknown, write to the 280 limit and use a thread for anything longer.
+Long-form posts on X (past 280) need a Premium account. **Chan's account is on the free tier**
+(recorded in `brand.md`), so write to the 280 limit and use a thread for anything longer.
 
 Always measure with `node scripts/count.mjs output/<date>-<slug>/post.md`. Do not count by eye.
 

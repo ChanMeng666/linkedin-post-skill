@@ -50,8 +50,8 @@ Still allowed, because they aren't browser automation:
 | **take** | she read or watched something and has a view on it |
 | **recap** | she went to an event and wants to credit the people and say what stuck |
 
-**Platforms**: `linkedin`, `x`, or `both`. If she named one, use it. If she didn't, write both and
-say so. `platforms.md` lists the cases where a mode doesn't suit a platform; skip those and say why.
+**Platforms**: `linkedin`, `x`, or `both`. If she named one, use it. **The default is both**:
+when she doesn't name a platform, write both and say so. `platforms.md` lists the cases where a mode doesn't suit a platform; skip those and say why.
 
 **The real material.** The voice depends on true specifics, so gather them before drafting. Ask
 only for what is missing, in one message:

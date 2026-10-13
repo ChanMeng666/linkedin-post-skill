@@ -25,9 +25,8 @@ the skill needn't load the whole repo each run.
 
 ### Accounts
 - **LinkedIn:** Chan's personal profile. The audiences above.
-- **X:** handle **not recorded yet** (fill in here). Premium status **unknown**, so posts are
-  written to the 280-character limit and anything longer becomes a thread. Change this line if she
-  has Premium and wants long posts. Audience there: AI engineers, open-source maintainers, people
+- **X:** free tier, so every post is written to the 280-character limit and anything longer
+  becomes a thread. No long-form posts. Handle **not recorded yet** (fill in here). Audience there: AI engineers, open-source maintainers, people
   who use the tools she writes about. See `platforms.md`.
 
 ## Color — Caldera palette
