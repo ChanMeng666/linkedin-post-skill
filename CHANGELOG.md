@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.0] - 2026-10-13
+
+### Added
+- **Bold on LinkedIn, as signposts.** `scripts/style.mjs` turns `**runs**` in the `text linkedin`
+  block into bold look-alike Unicode letters that survive a paste (`--plain` reverts), and
+  refuses runs containing a hashtag, a mention or a link. `references/platforms.md` → "Bold on
+  LinkedIn" sets what may be bold (label lines, the lead-in of each parallel point, at most one
+  delivered line), what may not (the first line, names, hashtags, links, mid-sentence emphasis)
+  and how much, with the reason: those letters cost screen-reader and search legibility.
+- `count.mjs` reports bold runs and enforces the budget (six runs, 12% of letters, 60 characters
+  a run, none in the first line, none on X).
+
+### Changed
+- `voice.md` no longer bans bold outright; it bans bold for emphasis.
+
 ## [2.1.1] - 2026-10-13
 
 ### Fixed

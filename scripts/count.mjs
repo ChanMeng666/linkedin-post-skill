@@ -4,7 +4,8 @@
 //   node scripts/count.mjs output/<date>-<slug>/post.md
 //
 // Reads every fenced block whose info string is `text linkedin` or `text x`.
-//   - linkedin: character count against the 3,000 cap, the "see more" preview, hashtag count.
+//   - linkedin: character count against the 3,000 cap, the "see more" preview, hashtag count,
+//               and the bold budget (bold is look-alike Unicode letters; see scripts/style.mjs).
 //   - x: one post per block, or a thread with posts separated by a line containing only `---`.
 //        Length is X's weighted count (URL = 23, emoji and CJK = 2, everything else = 1).
 // Also flags the house-style bans from references/voice.md. Exits 1 on any hard failure
@@ -37,6 +38,15 @@ function xLength(text) {
   return n;
 }
 
+// Bold look-alike letters and digits (Mathematical Sans-Serif Bold), as written by style.mjs.
+const B = '[\u{1D5D4}-\u{1D607}\u{1D7EC}-\u{1D7F5}]';
+const BOLD_CHAR = new RegExp(B, 'gu');
+const BOLD_RUN = new RegExp(`${B}(?:[^A-Za-z0-9\n]*${B})*`, 'gu');
+const LETTER = /[\p{L}\p{N}]/gu;
+const BOLD_RUNS_MAX = 6;       // label lines and lead-ins, not sentences
+const BOLD_SHARE_MAX = 0.12;   // of all letters and digits in the post
+const BOLD_RUN_CHARS_MAX = 60;
+
 const hashtags = (t) => (t.match(/(^|\s)#[\p{L}\p{N}_]+/gu) || []).length;
 const emoji = (t) => [...seg.segment(t)].filter((s) => /\p{Extended_Pictographic}/u.test(s.segment)).length;
 
@@ -46,7 +56,17 @@ function lint(text, platform) {
   if (/👇/.test(text)) w.push('👇 found: no pointing at the list or the comments');
   if (/[✅❌]/u.test(text)) w.push('✅/❌ found: write the contrast as sentences');
   if (/^\s*→/m.test(text)) w.push('arrow bullets found: write sentences or a plain list');
-  if (/\*\*|^#{1,6} /m.test(text)) w.push('markdown syntax found: neither platform renders it');
+  if (/\*\*/.test(text)) w.push(platform === 'linkedin' ? '** markers still in the copy: run scripts/style.mjs to turn them into bold' : '** markers found: X takes no bold');
+  if (/^#{1,6} /m.test(text)) w.push('markdown heading found: neither platform renders it');
+  const runs = text.match(BOLD_RUN) || [];
+  if (platform === 'x' && runs.length) w.push('bold letters found: X posts stay plain');
+  if (platform === 'linkedin' && runs.length) {
+    const share = (text.match(BOLD_CHAR) || []).length / Math.max(1, (text.match(LETTER) || []).length);
+    if (runs.length > BOLD_RUNS_MAX) w.push(`${runs.length} bold runs: keep to ${BOLD_RUNS_MAX} or fewer, or nothing stands out`);
+    if (share > BOLD_SHARE_MAX) w.push(`${Math.round(share * 100)}% of the post is bold: keep it under ${BOLD_SHARE_MAX * 100}%`);
+    for (const r of runs) if ([...r].length > BOLD_RUN_CHARS_MAX) w.push(`a bold run of ${[...r].length} characters: bold a label or a lead-in, not a whole sentence`);
+    if (text.split('\n')[0].match(BOLD_CHAR)) w.push('bold in the first line: the opening stays plain so search and the preview read it as words');
+  }
   if (/(^|\n)@\w/.test(text) && platform === 'linkedin') w.push('"@" in LinkedIn copy: names go in as plain text, Chan tags them by hand');
   const tags = hashtags(text);
   const tagMax = platform === 'x' ? 1 : 5;
@@ -72,7 +92,11 @@ for (const { platform, body } of blocks) {
     const len = [...body].length;
     const ok = len <= LINKEDIN_CAP;
     if (!ok) failed = true;
-    console.log(`\nLinkedIn  ${len} / ${LINKEDIN_CAP} chars  ${ok ? 'ok' : 'OVER'}  ·  ${hashtags(body)} hashtags  ·  ${emoji(body)} emoji`);
+    const runs = (body.match(BOLD_RUN) || []).length;
+    console.log(`\nLinkedIn  ${len} / ${LINKEDIN_CAP} chars  ${ok ? 'ok' : 'OVER'}  ·  ${hashtags(body)} hashtags  ·  ${emoji(body)} emoji  ·  ${runs} bold run${runs === 1 ? '' : 's'}`);
+    // A bold letter is one character on screen but two UTF-16 units. If LinkedIn counts units,
+    // the post is body.length long.
+    if (runs && body.length > LINKEDIN_CAP) console.log(`  ! ${body.length} if bold letters count double: trim, or use less bold`);
     console.log(`  preview before "see more": ${JSON.stringify([...body].slice(0, LINKEDIN_PREVIEW).join(''))}`);
     for (const w of lint(body, 'linkedin')) console.log(`  ! ${w}`);
   } else {

@@ -30,7 +30,7 @@ post with paragraphs deleted, and the LinkedIn post is never an X thread glued t
 | Links | In the body gives a preview card. In the first comment keeps the post itself clean | Not in the first post. Last post of the thread, or a reply |
 | Mentions | Chosen by hand from the dropdown, so names go in the copy as plain text | Typed as `@handle`. Only a handle that has been verified. Otherwise the plain name |
 | Image | Portrait 1080×1350 takes the most feed space | Landscape 1600×900 shows uncropped |
-| Formatting | None renders. No markdown | None renders. No markdown |
+| Formatting | No markdown, no bold button. Bold only as look-alike Unicode letters, used sparingly (see "Bold on LinkedIn") | None. Plain text |
 
 Long-form posts on X (past 280) need a Premium account. **Chan's account is on the free tier**
 (recorded in `brand.md`), so write to the 280 limit and use a thread for anything longer.
@@ -60,6 +60,62 @@ emoji numbering, no "1/".
 thing they said or did. Include one honest note if there is one (what ran late, what she'd want
 more of); it makes the praise believable. Names over five go in a single closing sentence, or get
 cut. Full research and tagging routine: `recap-playbook.md`.
+
+## Bold on LinkedIn
+
+A long post is easier to read when the eye can find its parts. Bold does that, so LinkedIn posts
+use it, as signposts and nowhere else.
+
+**What it is.** LinkedIn's post composer is plain text: no bold button, no markdown. (Articles
+and newsletters have a real editor; feed posts don't.) The bold seen in feed posts is a set of
+look-alike Unicode letters. They paste and display fine, but they are different characters from
+the ones they imitate, and that has three costs:
+
+- **Screen readers** may skip them or read each letter by its Unicode name.
+- **Search** doesn't match them: a bolded word is not found by a search for that word.
+- **Hashtags, mentions and links** stop working if any of their letters are styled.
+
+So the rule for every bold run: **the post must lose nothing but a signpost if that run went
+unread.** That decides where bold may go.
+
+**Bold these, and only these:**
+
+| What | Example | Why it is safe |
+|------|---------|----------------|
+| A label line that opens a section of a long post | **How we got here** | It is navigation. The section reads without it |
+| The lead-in phrase of each point, when a post has parallel points | **Explain every choice.** Why this stack, why this data model… | The reader can scan the points; the sentence after carries the meaning |
+| The one line the post exists to deliver, at most once | **The agent figures it out once. The code remembers.** | Optional. Skip it if the post already has labels or lead-ins |
+
+**Never bold:**
+
+- anything in the **first line**. It is the preview, and it is what search reads
+- a **name** of a person, company or product (it is what people search for, and what Chan tags)
+- a **hashtag**, a **link**, or anything with `@`
+- a word in the middle of a sentence, for emphasis. If the sentence needs it, rewrite the sentence
+- **numbers that are the evidence**. A reader may want to copy or search them
+- a whole paragraph, or two bold runs in a row
+
+**How much.** Six runs at most, under 12% of the post's letters, no run longer than 60
+characters. Past that nothing stands out and the post starts to look like an advert.
+
+**By mode.** *idea* and *recap*: yes, when there are labels or parallel points to mark. *take*:
+usually none; it is short enough to read straight through. *story*: none. A story with bold in it
+reads as marketing.
+
+**Only bold.** No italic, underline, strikethrough or decorative alphabets: they are harder to
+read and carry the same costs. Lists stay plain hyphens.
+
+**How to apply it.** Write the copy with `**double asterisks**` around each run, then:
+
+```
+node scripts/style.mjs output/<date>-<slug>/post.md
+```
+
+It rewrites the runs in the `text linkedin` block into bold letters in place, and refuses any run
+containing `#`, `@` or a link. `--plain` turns the block back into ordinary letters, which is
+also what to do if Chan would rather post without bold. `count.mjs` checks the limits above.
+
+**X gets none.** Look-alike bold on X reads as spam, and the free tier has no formatting.
 
 ## X shapes
 
