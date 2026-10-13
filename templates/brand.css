@@ -5,7 +5,7 @@
      to YOUR html file; adjust ../ depth so it resolves to templates/brand.css)
    Canonical source: references/brand.md · D:\github_repository\ChanMeng666\data\brand.yaml
    ========================================================================== */
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500&display=swap');
 
 :root{
   /* palette */
@@ -19,7 +19,7 @@
   --muted:#5B5B59;
 
   /* type */
-  --display:'Bebas Neue', Anton, Impact, sans-serif;
+  --display:'Anton', Oswald, 'Bebas Neue', Impact, sans-serif;
   --body:'DM Sans', Inter, 'Segoe UI', system-ui, sans-serif;
   --mono:'JetBrains Mono', Consolas, ui-monospace, monospace;
 }

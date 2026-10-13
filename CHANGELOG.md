@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.1] - 2026-10-13
+
+### Fixed
+- **Display face back to Anton.** 2.1.0 switched it to Bebas Neue to follow chanmeng.org. The
+  commit history of the two brand sources shows the split is by surface: every rendered asset
+  (profile banners, share images, README artwork, CV) is Anton, by a decision recorded in
+  `brand.yaml` v2.1.1; Bebas Neue is the face of live web text only. Post visuals are rendered
+  assets and appear beside those banners and share cards, so they use Anton.
+  `references/brand.md` now states the rule.
+
 ## [2.1.0] - 2026-10-13
 
 Three ideas borrowed from a code-drawn illustration pipeline: draw bitmaps in code and not with

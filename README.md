@@ -67,7 +67,7 @@ Chromium and pipes the frames to ffmpeg.
 
 HTML visuals render from one file at both sizes: `--size portrait` (1080×1350, LinkedIn) and
 `--size wide` (1600×900, X). Everything generated follows one design system ("Caldera": basalt
-canvas, a single orange accent, Bebas Neue and DM Sans, flat colour).
+canvas, a single orange accent, Anton and DM Sans, flat colour).
 
 | | |
 |---|---|
