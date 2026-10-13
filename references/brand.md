@@ -50,12 +50,14 @@ the skill needn't load the whole repo each run.
 
 ## Typography
 
-- **Display:** Anton (Google Fonts, OFL) — name, headings, stat numbers. MIXED case (not all-caps),
-  tracking `0.02em`, single weight 400 (renders ultra-bold; never faux-bold).
+- **Display:** Bebas Neue (Google Fonts, OFL): name, headings, stat numbers. A condensed all-caps
+  face, single weight 400; the weight comes from size, never faux-bold. This follows chanmeng.org
+  (`2d-portfolio/src/app/layout.tsx`), which is the latest decision. `brand.yaml` and the README
+  artwork still name Anton; the website wins. Anton stays in the stack as the fallback.
 - **Body:** DM Sans (400/500/700) — DM Sans 500 is the workhorse.
 - **Mono:** JetBrains Mono — datestamps / paths / versions only.
 - Body never below 16px web.
-- Web font load: `https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap`
+- Web font load: `https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap`
 
 ## Logo
 
@@ -94,10 +96,29 @@ open-sourced · production · end-to-end.
 - "Leveraged cutting-edge AI to deliver robust, world-class solutions."
 - "I'm a passionate, results-driven full-stack rockstar."
 
-## Imagery direction (for OpenAI-generated images)
+## Imagery direction (drawn in code by `templates/dither.js`)
 
-Functional and abstract, **risograph print feel**. Signature treatment: a **halftone dot gradient**
-ramping Digital Orange `#FC5000` → Cyber Violet `#524AE9`, dots whose radius scales across the
-gradient, clipped to a rounded panel. Flat and printed, never glossy; depth from color shifts, not
-shadows. **Forbidden:** AI-generated portraits of Chan; generic stock "tech/business" scenes; glossy
-3D renders. Keep it abstract/conceptual, not literal people.
+Checked on 2026-10-13 against the website repo (`2d-portfolio`: `tailwind.config.ts`,
+`src/app/globals.css`, `src/app/layout.tsx`) and the brand data repo (`ChanMeng666`:
+`data/brand.yaml`, `scripts/readme-art/kit.mjs`). Re-check those when this looks out of date.
+**Where the two disagree, the website is the latest decision.**
+
+**The motif is the pixel, not the dot.** The system is a "pixelated cyber-playground": flat colour
+blocks and square pixels with hard edges.
+
+- **Dither field.** A field of square pixels in ordered dither (8×8 Bayer), one flat colour,
+  sparse at one edge and nearly solid at the other. Ash on an ink plate. This is the brand's
+  texture, the one on the README hero and cover.
+- **The orange pixel.** One small orange square, usually as the full stop after a line of display
+  type. It is the plate's single accent.
+- **Plate furniture.** A faint ruled grid under the artwork and a crop mark in each corner.
+- **Ink plate or basalt card.** Covers sit on ink with ash type. Content visuals (comparisons,
+  numbers, steps) sit on basalt with ash cards, like the blog's share images: eyebrow with an
+  orange square, display-face title, orange dash, name.
+- Product screenshots and logos appear as they are, inside ash cards. Real assets over stock.
+
+**Retired, do not use:** round halftone dots, risograph dot gradients, any orange-to-violet colour
+ramp, paper grain or noise. These belonged to an earlier version of the system.
+
+**Forbidden:** AI-generated imagery of any kind, including portraits of Chan; generic stock
+"tech/business" scenes; glossy 3D renders; shadows and gradients.

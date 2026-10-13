@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>hero</title>
+<!-- A cover plate in the brand's own motif (the README hero and cover): an ink plate, the claim
+     in the display face ending in one orange pixel, a field of square pixels in ordered dither,
+     a faint ruled grid and corner crop marks. For a post that needs a cover image and has no
+     photo, screenshot or structure to show. Drawn by templates/dither.js: no image model.
+     The orange full stop is the plate's one accent, so the eyebrow carries no orange square.
+     Keep the title to about six words; end it with <span class="stop"></span> and no "." .
+     Copy to output/<date>-<slug>/visual.html (same folder depth, so the paths below still
+     resolve), replace the text, then render once per platform:
+       node scripts/render-html.mjs output/<date>-<slug>/visual.html output/<date>-<slug>/visual-linkedin.png --size portrait
+       node scripts/render-html.mjs output/<date>-<slug>/visual.html output/<date>-<slug>/visual-x.png --size wide -->
+<link rel="stylesheet" href="../../templates/brand.css">
+</head>
+<body>
+<div class="stage portrait plate-ink">
+  <canvas class="furniture"></canvas>
+  <canvas class="dither hero-field"></canvas>
+  <div class="frame hero">
+    <div class="v-eyebrow">Eyebrow label</div>
+    <h1 class="v-title">The post's claim in six words<span class="stop"></span></h1>
+    <div class="v-foot">
+      <img src="../../templates/assets/chan-monkey-logo-black.svg" alt="">
+      <div class="name">Chan Meng</div>
+    </div>
+  </div>
+</div>
+<script src="../../templates/dither.js"></script>
+</body>
+</html>

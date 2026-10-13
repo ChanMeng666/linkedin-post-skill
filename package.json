@@ -1,6 +1,6 @@
 {
   "name": "linkedin-post-skill",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "private": true,
   "type": "module",
   "description": "Claude Code skill: turn an idea into a post for LinkedIn and X, in a studied voice, with a Mermaid or HTML-rendered visual when the content has a shape.",
@@ -9,11 +9,10 @@
     "render:card": "node scripts/render-card.mjs",
     "render:html": "node scripts/render-html.mjs",
     "count": "node scripts/count.mjs",
-    "gen:image": "node scripts/gen-image.mjs"
+    "render:video": "node scripts/render-video.mjs"
   },
   "dependencies": {
     "@mermaid-js/mermaid-cli": "^11.14.0",
-    "openai": "^4.77.0",
     "playwright": "^1.49.0"
   }
 }
