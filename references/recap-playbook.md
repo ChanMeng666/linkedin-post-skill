@@ -73,7 +73,9 @@ what earns the reads. No diagram or branded card competes with it. Do not render
 - If Chan says she'll pick and attach her own photos, don't ask for paths. Note the order principle
   and move on.
 - **If she has no usable photos:** *offer* a single branded card (a quote or field-note) via
-  `references/visuals.md` §3 — offered, not assumed. Text-only is fine too. **Never a diagram.**
+  `references/visuals.md` §4, or a monkey illustration of the one thing that stuck (§8) —
+  offered, not assumed. Text-only is fine too. **Never a diagram, and never a drawing of the
+  event, the room or the people.**
 - **For X:** name the single strongest photo. Landscape crops best there.
 
 ## 4. Write the recap

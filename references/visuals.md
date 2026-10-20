@@ -11,10 +11,15 @@ Every asset goes in the run's folder: `output/<YYYY-MM-DD>-<slug>/`.
 
 A loop, a comparison, a number next to the number it replaced, the order things happen in: these
 are faster seen than read. An image that repeats the post's sentences inside boxes is slower than
-the post, and it reads as filler. Look for the visual in every draft; make one when the content
-has a shape; say "text only" in one line when it doesn't. Both are normal outcomes.
+the post, and it reads as filler.
 
-If Chan asks for a visual, make it. The test governs the default, not her requests.
+**Every post gets a visual.** When the content has a shape, the shape picks the route below. When
+it doesn't (a story, an opinion, a take), the visual is a **monkey illustration** (§8): the post's
+one idea as a physical metaphor, acted out by the brand monkey. That passes the test a different
+way: it gives the idea a picture the reader remembers, without repeating a word of the copy.
+
+"Text only" now happens only when Chan asks for it, or when the monkey route can't run (no key,
+no skill) and the hero plate would add nothing. Say which in one line.
 
 ## Route by the shape of the content
 
@@ -30,9 +35,17 @@ Find the row that matches what the post is actually about. Stop at the first mat
 | A short sequence in a straight line: stages, a timeline, a checklist of 3 to 5 | **HTML · steps** | §3 |
 | One sentence worth quoting alone | **HTML · quote card** | §4 |
 | A shape none of the above fits, and the content deserves it | **Bespoke HTML** | §5 |
-| A take on an article with a link preview | **Nothing.** The preview card is the visual | — |
-| An opinion or a story with no structure in it | **Nothing.** Text only | — |
-| Needs a cover image and has no photo, screenshot or structure to show | **HTML · hero** (ink plate with a dither field) | §6 |
+| An idea, a habit, a before/after of a feeling, a story's turn, a take's point: no numbers, no wiring diagram | **Monkey illustration** | §8 |
+| A take on an article | **Monkey illustration**, and the link moves to the first comment (LinkedIn) or a reply (X) — never an image and a preview card together | §8 |
+| An opinion or a story with no structure in it | **Monkey illustration** | §8 |
+| Needs a cover image and the monkey route can't run, or Chan asks for the plate | **HTML · hero** (ink plate with a dither field) | §6 |
+
+**Monkey or code?** Code when a reader might check or implement from the image: numbers,
+architecture, more than five parts, exact labels. An image model misspells and miscounts, so
+anything that must be exact is drawn by code. The monkey when the image should make the idea
+*felt*: one claim, one metaphor, at most three words on it. A post whose structure is a simple
+before/after or a loop can go either way; prefer the monkey for Story register, code for
+Operator register.
 
 **Mermaid or HTML?** Mermaid when the *relationships* are the content: take the arrows away and
 the meaning is gone. HTML when the *layout, the numbers or the type* are the content. A straight
@@ -45,9 +58,11 @@ line of boxes joined by arrows is a list; use `steps`. Two columns of boxes is a
 - a diagram of an event, a room, or the people in it
 - a chart of numbers Chan didn't measure or can't source
 - a generated image on top of real photos, or on top of an article's link preview
-- more than one generated visual per post
-- anything from an image model. Every visual here is drawn by code: repeatable, on-brand, and
-  free of the look of generated art
+- more than one generated visual per post (the LinkedIn and X renders of one visual count as one)
+- anything from an image model **except the monkey route (§8)**: no AI portraits of Chan or
+  anyone else, no stock-style scenes, no generated screenshots, charts or diagrams. The monkey
+  route is the one exception because it is anchored on the real logo and held to the brand
+  palette; everything else stays drawn by code
 
 ## Sizes per platform
 
@@ -66,6 +81,10 @@ Full detail in `brand.md`. The motif is the square pixel: no round dots, no half
 gradients, no grain. Basalt ground `#E2E2DF`, never pure white. **One orange `#FC5000`
 accent per visual**, on the element the post is about. Ink `#070607` for text. Violet `#524AE9`
 decorative only, never text. Anton for display, DM Sans for body. Flat: no shadows, no gradients.
+
+The monkey route keeps these rules with its own medium: basalt ground (swapped in after
+generation), hand-drawn ink line, one orange accent, violet only as marks, labels in ink. No
+Anton or DM Sans: its few labels are hand-lettered.
 
 Words on a visual follow `voice.md` too: plain, short, no slogans. A label is a few words. If a
 box needs a sentence, the content is prose and belongs in the post.
@@ -257,6 +276,49 @@ Check the result before handing it over: pull a few frames with
 `ffmpeg -ss <t> -i <file>.mp4 -frames:v 1 frame.png` and Read them. Confirm nothing is clipped
 mid-animation and the final frame matches the PNG. List the MP4 beside the PNG in `post.md`; Chan
 picks which to attach. A post takes an image or a video, not both.
+
+## 8. Monkey illustration
+
+The brand monkey, from the logo, acting out the post's one idea in a hand-drawn scene. Made by
+the `chan-monkey-illustrations` skill: an image model (OpenAI `gpt-image-2`) with the logo
+attached as a reference image, so the head is always the real mark.
+
+**Read first:** that skill's `references/monkey-ip.md` (the character), `composition-patterns.md`
+(how to invent the metaphor), `prompt-template.md` (the brief), and the "Social post profile"
+in its `style-dna.md`. The skill lives at `~/.claude/skills/chan-monkey-illustrations/`.
+
+1. **Find the metaphor.** Take the post's spine (Step 2) and turn it into a physical verb and a
+   low-tech object, then give the verb to the monkey. The idea must still work if a reader
+   never reads the post. One object, one action. If the monkey could be deleted and the picture
+   still says the same thing, it's decoration: rewrite the scene.
+2. **Write the brief** to `output/<date>-<slug>/monkey-brief.txt` from the skill's generation
+   template, with the post profile:
+   - CHARACTER block word for word; choose the mood from `monkey-ip.md`.
+   - Compose for **portrait 4:5** (LinkedIn renders first): stack the scene vertically.
+   - **One orange accent** on the element the post is about. Violet only as marks. No glare,
+     or one swipe.
+   - **0 to 3 labels**, 1 to 3 words, English (NZ spelling), in ink. Never a sentence from the
+     copy, never the post's hook, never a name, a handle or a hashtag.
+   - No real people, no event scenes, no logos of other companies, no text pretending to be a
+     screenshot.
+3. **Render LinkedIn, then recompose for X** from it, so both platforms carry the same picture:
+   ```
+   node scripts/render-monkey.mjs output/<date>-<slug>/monkey-brief.txt output/<date>-<slug>/visual-linkedin.png --size portrait
+   node scripts/render-monkey.mjs output/<date>-<slug>/monkey-brief.txt output/<date>-<slug>/visual-x.png --size wide --from output/<date>-<slug>/visual-linkedin.png
+   ```
+   X-only post: render `--size wide` directly. Each call takes about a minute.
+4. **Read both PNGs** and run the skill's `references/qa-checklist.md` plus "After rendering"
+   below. Above all: the head is on-model (curl sweeping up to the right, white face, round
+   eyes), labels spelled exactly, one orange accent. Fix with one regeneration or one edit
+   (the skill's edit prompts); after two failures, simplify the scene or drop to the hero plate.
+5. **In `post.md`**, under `## Visual`, list both files and the metaphor in one line, and note
+   that it is AI-generated from the logo (see `brand.md`).
+
+`render-monkey.mjs` exits 2 when the skill, Python or `OPENAI_API_KEY` is missing. Fall back to
+the hero plate (§6) and say so in the handoff.
+
+**Recaps:** never draw the event, the room or the people. If Chan has no photos, a monkey
+illustration may show *the one thing that stuck* — offered, not assumed (`recap-playbook.md`).
 
 ---
 
