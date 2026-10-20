@@ -2,8 +2,9 @@
 
 A [Claude Code](https://claude.com/claude-code) **skill** that takes one of your ideas and turns it
 into a post that specialists believe, non-specialists follow, and people finish. It writes for
-LinkedIn, for X, or for both, adds a diagram or a rendered image when the content has a shape worth
-seeing, and hands you **one markdown file**. It **never touches LinkedIn or X**: no browser
+LinkedIn, for X, or for both, gives every post a visual (a diagram or a rendered layout when the
+content has a shape, otherwise a hand-drawn illustration of the brand monkey acting out the idea),
+and hands you **one markdown file**. It **never touches LinkedIn or X**: no browser
 automation, no composer. You copy, tag, attach, publish.
 
 ```
@@ -47,7 +48,7 @@ invent anecdotes.
 ## Visuals, by the shape of the content
 
 One test: would a reader get something from the image in two seconds that the text makes them
-work for? Then the content's shape picks the route.
+work for? The content's shape picks the route, and every post leaves with one visual.
 
 | The post contains… | Route | Tool |
 |--------------------|-------|------|
@@ -55,12 +56,17 @@ work for? Then the content's shape picks the route.
 | arrows that matter: a loop, a branch, a hand-off | Mermaid diagram | `scripts/render-mermaid.mjs` |
 | a before/after, one number, a few numbers, a straight sequence | HTML layout → PNG | `templates/visuals/{compare,stat,bars,steps}.html` + `scripts/render-html.mjs` |
 | one quotable line | quote card | `scripts/render-card.mjs` |
-| a cover image, with nothing real or structural to show | hero plate | `templates/visuals/hero.html` + `templates/dither.js` |
 | something else that deserves a layout | bespoke HTML → PNG | `templates/brand.css` + `scripts/render-html.mjs` |
-| an opinion or story with no structure | nothing | — |
+| an idea, a story, an opinion, a take: no numbers, no wiring | monkey illustration | [chan-monkey-illustrations](https://github.com/ChanMeng666/chan-monkey-illustrations) + `scripts/render-monkey.mjs` |
+| a cover, when the monkey route can't run | hero plate | `templates/visuals/hero.html` + `templates/dither.js` |
 
-**No image model is involved.** Every visual is drawn by code in this repo, so it is repeatable
-and needs no API key. The hero plate's dither field (square pixels in ordered dither, the brand's own motif) is drawn on a canvas; Mermaid
+**One route uses an image model: the monkey.** The
+[chan-monkey-illustrations](https://github.com/ChanMeng666/chan-monkey-illustrations) skill sends
+the logo as a reference image to OpenAI `gpt-image-2`, so the head is always the real mark; the
+script swaps in the basalt ground and the brief holds it to one orange accent. The LinkedIn
+render is recomposed into the X shape, so both platforms carry the same picture. Numbers,
+architecture and anything exact are never generated. Every other visual is drawn by code in this
+repo, repeatable and keyless. The hero plate's dither field (square pixels in ordered dither, the brand's own motif) is drawn on a canvas; Mermaid
 diagrams can take a sketched look with `--look hand`; and any visual can be rendered as a short
 MP4 with `scripts/render-video.mjs`, which steps the page's animations frame by frame in headless
 Chromium and pipes the frames to ffmpeg.
@@ -72,6 +78,7 @@ canvas, a single orange accent, Anton and DM Sans, flat colour).
 | | |
 |---|---|
 | ![compare layout, landscape](examples/visual-x.png) | ![Mermaid loop, sketched look](examples/diagram-hand.png) |
+| ![monkey illustration, X](examples/monkey-x.png) | ![monkey illustration, LinkedIn](examples/monkey-linkedin.png) |
 
 ## The handoff
 
@@ -100,8 +107,8 @@ enforces the budget. X posts stay plain.
 SKILL.md            The orchestrator (invoked as /linkedin-post)
 references/         voice · platforms · brand · visuals · recap playbook · hashtag bank
 templates/          brand.css · dither.js · visuals/ (stat, compare, bars, steps, hero) · quote card · Mermaid theme · logo
-scripts/            count · style · render-html · render-mermaid · render-card · render-video
-examples/           A worked post.md for both platforms, with its visual and a Mermaid example
+scripts/            count · style · render-html · render-mermaid · render-card · render-video · render-monkey
+examples/           A worked post.md for both platforms, with its visual, a Mermaid example and a monkey illustration
 output/             Generated drafts, one folder per run (gitignored)
 ```
 
@@ -114,14 +121,27 @@ npx playwright install chromium
 # Optional, only for video output: install ffmpeg and make sure it is on PATH
 ```
 
+For the monkey route, install the
+[chan-monkey-illustrations](https://github.com/ChanMeng666/chan-monkey-illustrations) skill at
+`~/.claude/skills/chan-monkey-illustrations` (or point `CHAN_MONKEY_SKILL` at it), then:
+
+```bash
+pip install -r ~/.claude/skills/chan-monkey-illustrations/requirements.txt
+# OPENAI_API_KEY in the environment, or in a .env in this repo or in that skill's folder
+```
+
+Without it, `render-monkey.mjs` exits 2 and the skill falls back to the hero plate.
+
 Text-only posts and `count.mjs` need nothing installed beyond Node. To make the skill invocable as
 `/linkedin-post`, expose this folder to Claude Code's skills directory (for example a junction or
 symlink at `~/.claude/skills/linkedin-post`).
 
 ## Security
 
-The skill uses no API keys and calls no external model. `.gitignore` still excludes `.env`,
-`.env.local`, `node_modules/` and `output/`, so local files and drafts stay out of the repo.
+Only the monkey route calls an external model: OpenAI's Images API, with the post's illustration
+brief and the logo as reference. No post copy, names or photos are sent. The key is read from the
+environment or a gitignored `.env`; `.gitignore` excludes `.env`, `.env.local`, `node_modules/`
+and `output/`, so keys and drafts stay out of the repo.
 
 ## Making it yours
 
